@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dala Threads | Contact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* Use the same CSS from index/gallery here for consistency */
+        :root { --primary: #5a2a82; --bg: #fdfaff; --text: #2d1f3d; --card: #fff; }
+        body.dark { --bg: #1c1624; --text: #f5f5f5; --card: #2a2235; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; margin: 0; }
+        header { background: linear-gradient(135deg, #5a2a82, #7b3fa0); color: #fff; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: 600; }
+        .contact-container { max-width: 800px; margin: 60px auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .info-box i { color: var(--primary); font-size: 24px; margin-bottom: 10px; }
+        form { display: flex; flex-direction: column; gap: 15px; background: var(--card); padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input, textarea { padding: 12px; border-radius: 8px; border: 1px solid #ddd; background: var(--bg); color: var(--text); }
+        .btn-send { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        @media(max-width: 600px) { .contact-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Dala Threads</h1>
+    <nav>
+        <a href="index.html" id="navHome">Home</a>
+        <a href="product.html" id="navProduct">Our Products</a>
+        <a href="contact.html" id="navContact">Contact Us</a>
+        <a href="ourservices.html" id="navServices">Services</a>
+        <a href="login.html" id="navLogin">Sign In</a>
+    </nav>
+    <div style="display:flex; gap:10px;">
+        <select id="language"><option value="en">EN</option><option value="rw">RW</option></select>
+        <button onclick="toggleTheme()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-moon"></i></button>
+    </div>
+</header>
+
+<div class="contact-container">
+    <div>
+        <h2 id="contTitle">Contact Us</h2>
+        <p id="contText">Have a question or want a custom design? Get in touch!</p>
+        <div class="info-box"><br>
+            <i class="fa-solid fa-location-dot"></i> <p>Kigali, Rwanda</p><br>
+            <i class="fa-solid fa-phone"></i> <p>+250 795 013 119</p><br>
+            <i class="fa-solid fa-envelope"></i> <p>info@dalathreads.com</p>
+        </div>
+    </div>
+    <form>
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
+        <textarea placeholder="Message" rows="5"></textarea>
+        <button type="submit" class="btn-send">Send Message</button>
+    </form>
+</div>
+
+<script>
+    // SHARED LOGIC
+    function toggleTheme() {
+        document.body.classList.toggle("dark");
+        localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+    }
+    const translations = {
+        en: { home: "Home", prod: "Our Products", cont: "Contact", serv: "Services", title: "Contact Us", text: "Have a question? Get in touch!" },
+        rw: { home: "Ahabanza", prod: "Ibicuruzwa", cont: "Twandikire", serv: "Serivisi", title: "Twandikire", text: "Ufite ikibazo? Twandikire hano!" }
+    };
+    document.getElementById("language").addEventListener("change", (e) => {
+        localStorage.setItem("language", e.target.value);
+        applySettings(e.target.value);
+    });
+    function applySettings(l) {
+        document.getElementById("navHome").innerText = translations[l].home;
+        document.getElementById("navProduct").innerText = translations[l].prod;
+        document.getElementById("navContact").innerText = translations[l].cont;
+        document.getElementById("navServices").innerText = translations[l].serv;
+        document.getElementById("contTitle").innerText = translations[l].title;
+        document.getElementById("contText").innerText = translations[l].text;
+    }
+    window.onload = () => {
+        if(localStorage.getItem("theme") === "dark") document.body.classList.add("dark");
+        const L = localStorage.getItem("language") || "en";
+        document.getElementById("language").value = L;
+        applySettings(L);
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dala Threads | Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root { --primary: #5a2a82; --bg: #fdfaff; --text: #2d1f3d; --card: #fff; }
+        body.dark { --bg: #1c1624; --text: #f5f5f5; --card: #2a2235; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; margin: 0; }
+        header { background: linear-gradient(135deg, #5a2a82, #7b3fa0); color: #fff; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: 600; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 60px 5%; max-width: 1200px; margin: auto; }
+        .service-card { background: var(--card); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .service-card i { font-size: 40px; color: var(--primary); margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Dala Threads</h1>
+    <nav>
+        <a href="index.html" id="navHome">Home</a>
+        <a href="product.html" id="navProduct">Our Products</a>
+        <a href="contact.html" id="navContact">Contact Us</a>
+        <a href="ourservices.html" id="navServices">Services</a>
+        <a href="login.html" id="navLogin">Sign In</a>
+    </nav>
+    <div style="display:flex; gap:10px;">
+        <select id="language"><option value="en">EN</option><option value="rw">RW</option></select>
+        <button onclick="toggleTheme()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-moon"></i></button>
+    </div>
+</header>
+
+<h2 id="servTitle" style="text-align:center; font-family:'Playfair Display'; margin-top:50px; font-size:36px;">Our Services</h2>
+
+<div class="services-grid">
+    <div class="service-card">
+        <i class="fa-solid fa-pen-nib"></i>
+        <h4 id="s1_t">Custom Design</h4>
+        <p id="s1_d">We bring your vision to life with custom colors and patterns.</p>
+    </div>
+    <div class="service-card">
+        <i class="fa-solid fa-truck"></i>
+        <h4 id="s2_t">Worldwide Shipping</h4>
+        <p id="s2_d">From Kigali to the world, we deliver with care.</p>
+    </div>
+    <div class="service-card">
+        <i class="fa-solid fa-certificate"></i>
+        <h4 id="s3_t">Repair Services</h4>
+        <p id="s3_d">Handmade quality that we stand by. We offer repairs for our bags.</p>
+    </div>
+</div>
+
+<script>
+    function toggleTheme() {
+        document.body.classList.toggle("dark");
+        localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+    }
+    const translations = {
+        en: { home: "Home", prod: "Our Products", cont: "Contact", serv: "Services", stitle: "Our Services", s1t: "Custom Design", s1d: "We bring your vision to life.", s2t: "Shipping", s2d: "From Kigali to the world.", s3t: "Repairs", s3d: "We offer repairs for our bags." },
+        rw: { home: "Ahabanza", gall: "Ibicuruzwa", cont: "Twandikire", serv: "Serivisi", stitle: "Serivisi Dutanga", s1t: "Gukora Ibyo Wifuza", s1d: "Tugufasha gukora Ibikapu mu mabara wihitiyemo.", s2t: "Kuyigeza aho uri", s2d: "Kuva i Kigali kugera ku isi yose.", s3t: "Gusana", s3d: "Turasana Ibikapu yacu yangiritse." }
+    };
+    document.getElementById("language").addEventListener("change", (e) => {
+        localStorage.setItem("language", e.target.value);
+        applySettings(e.target.value);
+    });
+    function applySettings(l) {
+        document.getElementById("navHome").innerText = translations[l].home;
+        document.getElementById("navProducts").innerText = translations[l].prod;
+        document.getElementById("navContact").innerText = translations[l].cont;
+        document.getElementById("navServices").innerText = translations[l].serv;
+        document.getElementById("servTitle").innerText = translations[l].stitle;
+        document.getElementById("s1_t").innerText = translations[l].s1t; document.getElementById("s1_d").innerText = translations[l].s1d;
+        document.getElementById("s2_t").innerText = translations[l].s2t; document.getElementById("s2_d").innerText = translations[l].s2d;
+        document.getElementById("s3_t").innerText = translations[l].s3t; document.getElementById("s3_d").innerText = translations[l].s3d;
+    }
+    window.onload = () => {
+        if(localStorage.getItem("theme") === "dark") document.body.classList.add("dark");
+        const L = localStorage.getItem("language") || "en";
+        document.getElementById("language").value = L;
+        applySettings(L);
+    };
+</script>
+</body>
+</html>

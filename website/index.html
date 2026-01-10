@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dala Threads | Handcrafted Elegance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #5a2a82;
+            --secondary: #7b3fa0;
+            --light-bg: #fdfaff;
+            --dark-bg: #1c1624;
+            --card-bg: #ffffff;
+            --text: #2d1f3d;
+            --accent: #ffd700; /* Gold for badges */
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        
+        body { 
+            font-family:'DM Sans', sans-serif; 
+            background:var(--light-bg); 
+            color:var(--text); 
+            line-height:1.6; 
+            transition: 0.3s; 
+            overflow-x: hidden;
+        }
+        
+        body.dark { --light-bg: var(--dark-bg); --text: #f5f5f5; --card-bg: #2a2235; }
+        body.dark .hero-overlay { background: rgba(0, 0, 0, 0.6); }
+        /* Fix for select dropdown visibility in dark mode */
+        body.dark select option { background: var(--dark-bg); color: #fff; }
+
+        /* Header Updates */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff; padding: 10px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
+        .logo-circle { 
+            width: 45px; height: 45px; background: white; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-weight: bold; font-family: 'Playfair Display';
+            font-size: 1.2rem;
+        }
+
+        header h1 { font-family: 'Playfair Display', serif; font-size: 22px; }
+        
+        nav { display: flex; align-items: center; }
+        nav a { color: #fff; margin: 0 12px; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: var(--accent); }
+
+        .top-icons { display: flex; gap: 15px; align-items: center; }
+        .top-icons select, .top-icons button { 
+            padding: 6px 10px; border: none; border-radius: 8px; cursor: pointer; 
+            background: rgba(255,255,255,0.2); color: white; font-weight: bold;
+        }
+        
+        /* CART ICON (Updated to Cart instead of Bag) */
+        .cart-icon { position: relative; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+        .cart-icon:hover { color: var(--accent); }
+        .cart-count { 
+            position: absolute; top: -8px; right: -8px; background: var(--accent); 
+            color: #000; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: bold;
+            min-width: 18px; text-align: center;
+        }
+
+        /* NEW: CART DROPDOWN STYLES */
+        #cart-dropdown {
+            display: none;
+            position: fixed;
+            top: 70px;
+            right: 5%;
+            width: 300px;
+            background: var(--card-bg);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            z-index: 2000;
+            color: var(--text);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        #cart-dropdown.active { display: block; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; font-size: 0.9rem; }
+        .cart-total { font-weight: bold; font-size: 1.1rem; margin-top: 15px; text-align: right; border-top: 2px solid var(--primary); padding-top: 10px; }
+        .btn-whatsapp-order {
+            display: block; background: #25d366; color: white; text-align: center;
+            padding: 10px; border-radius: 8px; text-decoration: none;
+            margin-top: 15px; font-weight: bold; font-size: 0.9rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative; height: 60vh;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; color: white; text-align: center;
+            background: #2d1f3d url('hero-fallback.jpg') center/cover;
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 1;
+        }
+        .hero-content { position: relative; z-index: 2; padding: 0 20px; }
+        .hero-content h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); margin-bottom: 15px; }
+
+        /* Product Grid & E-commerce Cards */
+        .products { padding: 60px 5%; max-width: 1240px; margin: auto; }
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px;}
+        .section-header h3 { font-family: 'Playfair Display', serif; font-size: 32px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        
+        .card { 
+            background: var(--card-bg); border-radius: 12px; overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.4s ease;
+            position: relative; display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        
+        .badge { 
+            position: absolute; top: 15px; left: 15px; background: var(--accent); 
+            color: #000; padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; z-index: 2;
+        }
+
+        .img-container { position: relative; overflow: hidden; height: 320px; background: #eee; }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .card:hover img { scale: 1.05; }
+        
+        .card-content { padding: 20px; text-align: left; flex-grow: 1; }
+        .card-content h4 { margin-bottom: 5px; font-size: 1.1rem; }
+        .price { color: var(--primary); font-weight: 700; font-size: 1.2rem; display: block; margin-bottom: 15px; }
+
+        .button-group { display: flex; gap: 10px; margin-top: auto; }
+        .btn-buy {
+            background: #25d366; color: white; padding: 10px 15px; flex: 2;
+            text-decoration: none; border-radius: 8px; font-size: 0.85rem;
+            display: inline-block; text-align: center; font-weight: bold; transition: 0.3s;
+            cursor: pointer; border: none;
+        }
+        .btn-buy:hover { background: #1eb956; }
+        .btn-details {
+            border: 1px solid #ddd; color: var(--text); padding: 10px; flex: 1;
+            text-decoration: none; border-radius: 8px; font-size: 0.85rem; text-align: center; transition: 0.3s;
+        }
+        .btn-details:hover { background: #eee; }
+
+        /* Newsletter Section */
+        .newsletter { background: var(--primary); color: white; padding: 60px 5%; text-align: center; margin-top: 40px; }
+        .newsletter h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 10px; }
+        .newsletter input { padding: 12px 20px; border-radius: 50px; border: none; width: 100%; max-width: 400px; margin: 10px; color: #333; }
+        .newsletter button { padding: 12px 30px; border-radius: 50px; border: none; background: var(--accent); color: #000; font-weight: bold; cursor: pointer; }
+
+        /* Footer Updates */
+        footer { background: #1c1624; color: #fff; padding: 60px 5%; text-align: left; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        .footer-logo h2 { font-family: 'Playfair Display', serif; margin-bottom: 15px; }
+        .footer-links h4 { margin-bottom: 20px; color: var(--accent); }
+        footer a { color: #ccc; text-decoration: none; display: block; margin-bottom: 10px; transition: 0.3s; font-size: 0.9rem;}
+        footer a:hover { color: white; padding-left: 5px; }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { font-size: 1.2rem; color: #fff; margin: 0; }
+
+        @media(max-width: 768px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .hero { height: 50vh; }
+            .section-header { flex-direction: column; align-items: center; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo-container">
+        <div class="logo-circle">DT</div>
+        <h1>Dala Threads</h1>
+    </a>
+    <nav>
+        <a href="index.html" id="navHome">Home</a>
+        <a href="product.html" id="navOurProducts">Our Products</a>
+        <a href="contact.html" id="navContact">Contact Us</a>
+        <a href="ourservices.html" id="navServices">Services</a>
+        <a href="login.html" id="navLogin">Sign In</a>
+    </nav>
+    <div class="top-icons">
+        <div class="cart-icon" onclick="toggleCart()">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count">0</span>
+        </div>
+        <select id="language">
+            <option value="en">EN</option>
+            <option value="rw">RW</option>
+        </select>
+        <button onclick="toggleTheme()" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+    </div>
+</header>
+
+<div id="cart-dropdown">
+    <h4 style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">Your Cart</h4>
+    <div id="cart-items-list">
+        <p style="font-size:0.8rem; color:#888;">Cart is empty</p>
+    </div>
+    <div class="cart-total">Total: <span id="cart-total-value">0</span> RWF</div>
+    <a href="#" id="whatsapp-order-btn" class="btn-whatsapp-order">Order via WhatsApp</a>
+</div>
+
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h2 id="heroTitle">Beautiful Handmade Beaded Bags</h2>
+        <p id="heroText">Discover unique, handcrafted beaded bags designed with culture, love, and elegance.</p>
+    </div>
+</section>
+
+<section class="products">
+    <div class="section-header">
+        <h3 id="collTitle">Our Featured Collection</h3>
+        <p style="font-size: 0.9rem; opacity: 0.7;">Showing 9 exquisite designs</p>
+    </div>
+    
+    <div class="grid">
+        <div class="card">
+            <div class="badge">New Arrival</div>
+            <div class="img-container"><img src="bag1.jpg" alt="Classic Beaded Bag"></div>
+            <div class="card-content">
+                <h4>Classic Beaded Bag</h4>
+                <div class="button-group">
+                    <button onclick="addToCart('Classic Beaded Bag', 25000)" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Buy
+                    </button>
+                    <a href="#" class="btn-details">Details</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="badge">Popular</div>
+            <div class="img-container"><img src="bag2.jpg" alt="Elegant Bead Purse"></div>
+            <div class="card-content">
+                <h4>Elegant Bead Purse</h4>
+                <div class="button-group">
+                    <button onclick="addToCart('Elegant Bead Purse', 30000)" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Buy
+                    </button>
+                    <a href="#" class="btn-details">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="img-container"><img src="bag3.jpg" alt="Luxury Handbag"></div>
+            <div class="card-content">
+                <h4>Luxury Handbag</h4>
+                <div class="button-group">
+                    <button onclick="addToCart('Luxury Handbag', 45000)" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Buy
+                    </button>
+                    <a href="#" class="btn-details">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="img-container"><img src="bag4.jpg" alt="Small Purse"></div>
+            <div class="card-content">
+                <h4>Small Elegant Purse</h4>
+                <div class="button-group">
+                    <button onclick="addToCart('Small Elegant Purse', 20000)" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Buy
+                    </button>
+                    <a href="#" class="btn-details">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="img-container"><img src="bag5.jpg" alt="Bead Purse"></div>
+            <div class="card-content">
+                <h4>Evening Bead Purse</h4>
+                <div class="button-group">
+                    <button onclick="addToCart('Evening Bead Purse', 35000)" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Buy
+                    </button>
+                    <a href="#" class="btn-details">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="img-container"><img src="bag6.jpg" alt="Bead Purse"></div>
+            <div class="card-content">
+                <h4>Signature Collection</h4>
+                <div class="button-group">
+                    <button onclick="addToCart('Signature Collection', 50000)" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Buy
+                    </button>
+                    <a href="#" class="btn-details">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="img-container"><img src="bagss.jpg" alt="Bead Purse"></div>
+            <div class="card-content">
+                <h4>Fashion Pearl backpack</h4>
+                <div class="button-group">
+                    <button onclick="addToCart('Fashion Pearl backpack', 55000)" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Buy
+                    </button>
+                    <a href="#" class="btn-details">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="img-container"><img src="bagss15 (5).jpg" alt="Bead Purse"></div>
+            <div class="card-content">
+                <h4>Royal Beaded Clutch</h4>
+                <div class="button-group">
+                    <button onclick="addToCart('Royal Beaded Clutch', 40000)" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Buy
+                    </button>
+                    <a href="#" class="btn-details">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="img-container"><img src="bagss1.jpg" alt="Bead Purse"></div>
+            <div class="card-content">
+                <h4>Summer Glow Bag</h4>
+                <div class="button-group">
+                    <button onclick="addToCart('Summer Glow Bag', 22000)" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Buy
+                    </button>
+                    <a href="#" class="btn-details">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="newsletter">
+    <h3>Join the Dala Club</h3>
+    <p>Subscribe to receive updates on new collections and exclusive offers.</p>
+    <form onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+        <input type="email" placeholder="Enter your email address" required>
+        <button type="submit">Subscribe</button>
+    </form>
+</section>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-logo">
+            <h2>Dala Threads</h2>
+            <p>© 2026 Handmade in Rwanda with love. We bring elegance to your wardrobe through traditional beadwork.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/250795013119"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <a href="index.html">Home</a>
+            <a href="product.html">Our Products</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="ourservices.html">Services</a>
+            <a href="login.html">Sign In</a>
+        </div>
+        <div class="footer-links">
+            <h4>Support</h4>
+            <a href="#">Shipping Policy</a>
+            <a href="#">Return Policy</a>
+            <a href="#">FAQs</a>
+            <a href="#">Size Guide</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // --- BASIC THEME & LANGUAGE ---
+    function toggleTheme(){
+        document.body.classList.toggle("dark");
+        localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+        const icon = document.querySelector(".top-icons button i");
+        icon.className = document.body.classList.contains("dark") ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    }
+
+    const translations = {
+        en: { navHome: "Home", navProd: "Our Products", navCont: "Contact Us", navServ: "Services", navLog: "Sign In", title: "Beautiful Handmade Beaded Bags", text: "Discover unique, handcrafted beaded bags designed with culture, love, and elegance.", coll: "Our Featured Collection" },
+        rw: { navHome: "Ahabanza", navProd: "Ibicuruzwa Byacu", navCont: "Twandikire", navServ: "Serivisi", navLog: "Injira", title: "Imifuka y’amasaro ikozwe n’intoki", text: "Menya imifuka y’amasaro yihariye ikozwe mu muco, urukundo n’ubwiza.", coll: "Ibihangano Byacu" }
+    };
+
+    const languageSelect = document.getElementById("language");
+    languageSelect.addEventListener("change", () => {
+        const l = languageSelect.value;
+        localStorage.setItem("language", l);
+        applyLanguage(l);
+    });
+
+    function applyLanguage(l) {
+        const t = translations[l];
+        document.getElementById("navHome").innerText = t.navHome;
+        document.getElementById("navOurProducts").innerText = t.navProd;
+        document.getElementById("navContact").innerText = t.navCont;
+        document.getElementById("navServices").innerText = t.navServ;
+        document.getElementById("navLogin").innerText = t.navLog;
+        document.getElementById("heroTitle").innerText = t.title;
+        document.getElementById("heroText").innerText = t.text;
+        document.getElementById("collTitle").innerText = t.coll;
+    }
+
+    // --- CART SYSTEM LOGIC ---
+    let cart = JSON.parse(localStorage.getItem('dalaCart')) || [];
+
+    function toggleCart() {
+        document.getElementById('cart-dropdown').classList.toggle('active');
+    }
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        localStorage.setItem('dalaCart', JSON.stringify(cart));
+        updateCartUI();
+        // Optional: Open dropdown automatically when item is added
+        document.getElementById('cart-dropdown').classList.add('active');
+    }
+
+    function updateCartUI() {
+        const list = document.getElementById('cart-items-list');
+        const count = document.querySelector('.cart-count');
+        const totalSpan = document.getElementById('cart-total-value');
+        const whatsappBtn = document.getElementById('whatsapp-order-btn');
+
+        count.innerText = cart.length;
+        
+        if(cart.length === 0) {
+            list.innerHTML = '<p style="font-size:0.8rem; color:#888;">Cart is empty</p>';
+            totalSpan.innerText = "0";
+        } else {
+            list.innerHTML = "";
+            let total = 0;
+            let itemsText = "";
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                itemsText += `- ${item.name} (${item.price} RWF)\n`;
+                list.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span><b>${item.price.toLocaleString()}</b></span>
+                    </div>`;
+            });
+
+            totalSpan.innerText = total.toLocaleString();
+            
+            // Generate WhatsApp Link
+            const message = encodeURIComponent(`Hello Dala Threads! I'd like to order:\n${itemsText}\nTotal: ${total.toLocaleString()} RWF`);
+            whatsappBtn.href = `https://wa.me/250795013119?text=${message}`;
+        }
+    }
+
+    window.onload = () => {
+        updateCartUI();
+        if(localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark");
+            const btn = document.querySelector(".top-icons button i");
+            if(btn) btn.className = "fa-solid fa-sun";
+        }
+        const savedLang = localStorage.getItem("language") || "en";
+        languageSelect.value = savedLang;
+        applyLanguage(savedLang);
+    };
+</script>
+</body>
+</html>
