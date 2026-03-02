@@ -7,23 +7,236 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* Use the same CSS from index/gallery here for consistency */
-        :root { --primary: #5a2a82; --bg: #fdfaff; --text: #2d1f3d; --card: #fff; }
-        body.dark { --bg: #1c1624; --text: #f5f5f5; --card: #2a2235; }
-        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; margin: 0; }
-        header { background: linear-gradient(135deg, #5a2a82, #7b3fa0); color: #fff; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; }
-        nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: 600; }
-        .contact-container { max-width: 800px; margin: 60px auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .info-box i { color: var(--primary); font-size: 24px; margin-bottom: 10px; }
-        form { display: flex; flex-direction: column; gap: 15px; background: var(--card); padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        input, textarea { padding: 12px; border-radius: 8px; border: 1px solid #ddd; background: var(--bg); color: var(--text); }
-        .btn-send { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        @media(max-width: 600px) { .contact-container { grid-template-columns: 1fr; } }
+        /* Exact Colors from your screenshot */
+        :root { 
+            /* The specific Pinkish-Wine to Forest Green gradient */
+            --header-gradient: linear-gradient(to right, #e0389aff, #4a773c); 
+            --wine-pink: #702046;
+            --forest-green: #4a773c;
+            --bg: #fdfaff; 
+            --text: #2d1f3d; 
+            --card: #ffffff; 
+        }
+        body.dark { 
+            --bg: #1c1624; 
+            --text: #f5f5f5; 
+            --card: #2a2235; 
+        }
+
+        body { 
+            font-family: 'DM Sans', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            transition: 0.3s; 
+            margin: 0; 
+        }
+
+        /* --- HEADER (Matching your screenshot exactly) --- */
+        header { 
+            background: var(--header-gradient); 
+            color: #fff; 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .logo-circle {
+            background: #fff;
+            color: var(--wine-pink);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin: 0;
+            color: #fff;
+        }
+
+        nav a { 
+            color: #fff; 
+            margin: 0 12px; 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.95rem;
+        }
+
+        /* --- CONTACT CONTENT --- */
+        .contact-container { 
+            max-width: 900px; 
+            margin: 60px auto; 
+            padding: 20px; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 40px; 
+        }
+
+        h2 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.5rem; 
+            color: var(--wine-pink); 
+            margin-bottom: 10px;
+        }
+        body.dark h2 { color: #fff; }
+
+        .info-box i { 
+            color: var(--forest-green); 
+            font-size: 22px; 
+            margin-bottom: 15px; 
+        }
+
+        form { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            background: var(--card); 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+        }
+
+        input, textarea { 
+            padding: 12px; 
+            border-radius: 8px; 
+            border: 1px solid #ddd; 
+            background: var(--bg); 
+            color: var(--text); 
+        }
+
+        .btn-send { 
+            background: var(--header-gradient); 
+            color: white; 
+            border: none; 
+            padding: 14px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+        .btn-send:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        #language {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid white;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        @media(max-width: 768px) { .contact-container { grid-template-columns: 1fr; } }
+
+        /* ==========================================================================
+   MEDIA QUERIES - RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* --- 1. Tablets & Small Desktops (Under 992px) --- */
+@media screen and (max-width: 992px) {
+    header {
+        padding: 15px 3%; /* Reduced padding for more space */
+    }
+
+    nav {
+        gap: 10px; /* Tighter navigation spacing */
+    }
+
+    nav a {
+        font-size: 0.85rem;
+        margin: 0 8px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns instead of three */
+        gap: 20px;
+    }
+}
+
+/* --- 2. Small Tablets & Large Phones (Under 768px) --- */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column; /* Stack logo and nav vertically */
+        gap: 15px;
+        text-align: center;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap; /* Wrap links if they don't fit in one line */
+        justify-content: center;
+    }
+
+    .hero {
+        height: 40vh; /* Shorter hero section for mobile */
+    }
+
+    .hero h2 {
+        font-size: 1.8rem; /* Scaled down typography */
+    }
+
+    #cart-dropdown {
+        width: 90%; /* Cart fills the screen width */
+        right: 5%;
+        left: 5%;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr; /* Stack footer elements */
+        text-align: center;
+        gap: 30px;
+    }
+}
+
+/* --- 3. Mobile Phones (Under 480px) --- */
+@media screen and (max-width: 480px) {
+    .grid {
+        grid-template-columns: 1fr; /* Single column for bag images */
+        padding: 20px 5%;
+    }
+
+    .logo-container h1 {
+        font-size: 1.3rem; /* Compact logo text */
+    }
+
+    .top-icons {
+        width: 100%;
+        justify-content: space-around;
+        padding-top: 10px;
+    }
+
+    .card img {
+        height: 280px; /* Adjusted image height for small screens */
+    }
+
+    .btn-buy, .btn-add {
+        padding: 15px; /* Larger touch targets for fingers */
+    }
+}
     </style>
 </head>
 <body>
+
 <header>
-    <h1>Dala Threads</h1>
+    <a href="index.html" class="logo-container">
+        <div class="logo-circle">DT</div>
+        <h1>Dala Threads</h1>
+    </a>
     <nav>
         <a href="index.html" id="navHome">Home</a>
         <a href="product.html" id="navProduct">Our Products</a>
@@ -31,7 +244,7 @@
         <a href="ourservices.html" id="navServices">Services</a>
         <a href="login.html" id="navLogin">Sign In</a>
     </nav>
-    <div style="display:flex; gap:10px;">
+    <div style="display:flex; gap:10px; align-items:center;">
         <select id="language"><option value="en">EN</option><option value="rw">RW</option></select>
         <button onclick="toggleTheme()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-moon"></i></button>
     </div>
@@ -41,28 +254,28 @@
     <div>
         <h2 id="contTitle">Contact Us</h2>
         <p id="contText">Have a question or want a custom design? Get in touch!</p>
-        <div class="info-box"><br>
+        <div class="info-box">
+            <br>
             <i class="fa-solid fa-location-dot"></i> <p>Kigali, Rwanda</p><br>
             <i class="fa-solid fa-phone"></i> <p>+250 795 013 119</p><br>
             <i class="fa-solid fa-envelope"></i> <p>info@dalathreads.com</p>
         </div>
     </div>
-    <form>
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email">
-        <textarea placeholder="Message" rows="5"></textarea>
+    <form onsubmit="event.preventDefault(); alert('Message sent!');">
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Message" rows="5" required></textarea>
         <button type="submit" class="btn-send">Send Message</button>
     </form>
 </div>
 
 <script>
-    // SHARED LOGIC
     function toggleTheme() {
         document.body.classList.toggle("dark");
         localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
     }
     const translations = {
-        en: { home: "Home", prod: "Our Products", cont: "Contact", serv: "Services", title: "Contact Us", text: "Have a question? Get in touch!" },
+        en: { home: "Home", prod: "Our Products", cont: "Contact Us", serv: "Services", title: "Contact Us", text: "Have a question? Get in touch!" },
         rw: { home: "Ahabanza", prod: "Ibicuruzwa", cont: "Twandikire", serv: "Serivisi", title: "Twandikire", text: "Ufite ikibazo? Twandikire hano!" }
     };
     document.getElementById("language").addEventListener("change", (e) => {

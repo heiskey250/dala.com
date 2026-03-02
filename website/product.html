@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         :root {
-            --primary: #5a2a82;
-            --secondary: #7b3fa0;
+            --header-gradient: linear-gradient(to right, #e0389aff, #4a773c); 
+            --primary: #702046;
+            --secondary: #4a773c;
             --bg: #fdfaff;
             --card: #ffffff;
             --text: #2d1f3d;
@@ -20,7 +21,10 @@
             --instagram: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
             --whatsapp: #25D366;
             --facebook: #1877F2;
-            --momo: #ffcc00;
+            --tiktok:#310831;
+            --email: #EA4335;
+            --ussd: #9b59b6;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,55 +33,117 @@
             font-family: 'DM Sans', sans-serif; 
             background: var(--bg); 
             color: var(--text); 
-            transition: 0.3s; 
+            transition: var(--transition); 
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        body.dark { --bg: #1c1624; --text: #f5f5f5; --card: #2a2235; }
-        body.accessible { font-size: 1.25rem; line-height: 1.8; }
+        body.dark { --bg: #130f1a; --text: #f5f5f5; --card: #1f1a29; }
 
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--header-gradient);
+            backdrop-filter: blur(15px);
             color: #fff; padding: 15px 5%;
             display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
         }
 
-        header h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .logo-circle {
+            background: #fff;
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+        }
+
+        header h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.6rem; 
+            letter-spacing: 1px; 
+            margin: 0;
+        }
+
         nav { display: flex; align-items: center; }
-        nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
-        nav a:hover { color: var(--accent); }
+        nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
+        nav a:hover { color: var(--accent); transform: translateY(-2px); }
 
         .top-icons { display: flex; gap: 15px; align-items: center; }
-        .top-icons select, .top-icons button { 
-            padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; 
-            background: rgba(255,255,255,0.2); color: white; transition: 0.3s;
-            font-weight: bold;
-        }
 
-        /* --- NEW LARGE CART SYSTEM --- */
-        .cart-trigger {
+        .search-container {
             position: relative;
-            font-size: 1.8rem; /* Increased size */
-            cursor: pointer;
-            color: white;
             display: flex;
             align-items: center;
         }
 
+        #productSearch {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 8px 15px 8px 35px;
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            outline: none;
+            width: 140px;
+            transition: var(--transition);
+        }
+
+        #productSearch::placeholder { color: rgba(255, 255, 255, 0.7); font-size: 0.8rem; }
+
+        #productSearch:focus {
+            width: 200px;
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .search-icon-inside {
+            position: absolute;
+            left: 12px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .top-icons select, .top-icons button { 
+            padding: 8px 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; cursor: pointer; 
+            background: rgba(255,255,255,0.1); color: white; transition: var(--transition);
+            font-weight: bold; outline: none;
+        }
+
+        .cart-trigger {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+            transition: var(--transition);
+        }
+        .cart-trigger:hover { transform: scale(1.1); color: var(--accent); }
+
         .cart-badge {
             position: absolute;
             top: -5px;
-            right: -10px;
+            right: -8px;
             background: var(--accent);
             color: #000;
-            font-size: 12px;
-            padding: 2px 6px;
+            font-size: 11px;
+            padding: 2px 5px;
             border-radius: 50%;
-            font-weight: bold;
-            min-width: 20px;
+            font-weight: 800;
+            min-width: 18px;
             text-align: center;
             border: 2px solid var(--primary);
         }
@@ -87,72 +153,129 @@
             position: fixed;
             top: 80px;
             right: 5%;
-            width: 400px; /* Increased width */
+            width: 380px;
             background: var(--card);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 25px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             z-index: 2000;
-            border: 1px solid rgba(0,0,0,0.1);
-            max-height: 85vh;
+            border: 1px solid rgba(0,0,0,0.05);
+            max-height: 80vh;
             overflow-y: auto;
+            animation: fadeIn 0.3s ease;
         }
 
         #cart-dropdown.active { display: block; }
-        
-        .cart-item { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(128,128,128,0.1); }
+        .remove-btn { background: none; color: #ff4757; border: none; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+        .remove-btn:hover { transform: scale(1.2); }
+
+        /* Email info box as a clickable red button */
+        .email-info-box {
+            margin-top: 15px;
         }
 
-        .remove-btn { 
-            background: none; color: #ff4757; border: none; 
-            cursor: pointer; font-size: 1.1rem; transition: 0.3s;
+        .email-btn-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--email);
+            color: white !important;
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            width: 100%;
         }
+        .email-btn-link:hover { filter: brightness(1.1); transform: translateY(-2px); }
 
-        .momo-box {
-            margin-top: 15px; padding: 12px; background: #fff9e6; 
-            border-left: 4px solid var(--momo); border-radius: 8px; color: #555; font-size: 0.85rem;
+        .checkout-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
         }
 
         .checkout-btn {
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            background: #25d366; color: white; text-decoration: none; 
-            padding: 12px; border-radius: 10px; font-weight: bold; margin-top: 10px; transition: 0.3s;
+            color: white; text-decoration: none; 
+            padding: 12px; border-radius: 10px; font-weight: bold; transition: var(--transition);
+            border: none; cursor: pointer; width: 100%;
+            font-size: 0.95rem;
         }
-        .checkout-btn.momo { background: var(--momo); color: #2d1f3d; }
+        .checkout-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        .checkout-btn.whatsapp { background: var(--whatsapp); }
+        .checkout-btn.ussd { background: var(--ussd); }
 
-        /* --- GALLERY GRID --- */
-        .gallery-section { padding: 40px 5%; max-width: 1300px; margin: auto; }
-        .gallery-section h2 { text-align: center; font-family: 'Playfair Display', serif; font-size: 38px; margin-bottom: 40px; }
+        .gallery-section { padding: 60px 5%; max-width: 1400px; margin: auto; }
+        .gallery-section h2 { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 50px; color: var(--primary); }
         
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 30px; 
         }
 
-        .card { background: var(--card); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: 0.4s; }
-        .card img { width: 100%; height: 300px; object-fit: cover; }
-        .card-content { padding: 25px; text-align: center; }
-        .price { font-weight: 700; color: var(--primary); margin-bottom: 15px; font-size: 1.2rem; }
+        .card { 
+            background: var(--card); border-radius: 20px; overflow: hidden; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: var(--transition);
+            border: 1px solid rgba(128,128,128,0.05);
+        }
+        .card.hidden { display: none; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 320px; object-fit: cover; }
         
+        .card-content { padding: 25px; text-align: center; }
+        .card-content h4 { font-family: 'Playfair Display', serif; margin-bottom: 10px; font-size: 1.2rem; }
+        .price { font-weight: 700; color: var(--primary); margin-bottom: 15px; font-size: 1.1rem; }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        /* Only the Add button — Buy button removed */
         .btn-add {
-            background: var(--primary); color: white; border: none;
             padding: 12px 20px; border-radius: 50px; cursor: pointer;
             width: 100%; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: var(--transition); border: none;
+            background: var(--primary); color: white; 
         }
+        .btn-add:hover { background: var(--secondary); }
 
-        footer { background: #1c1624; color: #fff; text-align: center; padding: 60px 5%; margin-top: 80px; }
-        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
-        .social-icon { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 1.2rem; }
+        footer { background: #130f1a; color: #fff; text-align: center; padding: 60px 5%; margin-top: 80px; }
+        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
+        .social-icon { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 1.2rem; transition: var(--transition); }
+        .social-icon:hover { transform: translateY(-5px); }
         .social-icon.instagram { background: var(--instagram); }
         .social-icon.whatsapp { background: var(--whatsapp); }
         .social-icon.facebook { background: var(--facebook); }
+        .social-icon.tiktok { background: var(--tiktok); }
 
-        @media(max-width: 992px) {
+        @media screen and (max-width: 992px) {
+            header { padding: 15px 3%; }
+            nav a { font-size: 0.85rem; margin: 0 8px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        }
+
+        @media screen and (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; }
+            nav { justify-content: center; flex-wrap: wrap; }
             #cart-dropdown { width: 90%; right: 5%; left: 5%; }
-            nav a { margin: 0 8px; font-size: 0.85rem; }
+            .search-container { width: 100%; justify-content: center; }
+            #productSearch { width: 80%; }
+        }
+
+        @media screen and (max-width: 480px) {
+            .grid { grid-template-columns: 1fr; }
+            .logo-container h1 { font-size: 1.3rem; }
+            .card img { height: 280px; }
         }
     </style>
 </head>
@@ -160,20 +283,27 @@
 <body>
 
 <header>
-    <h1>Dala Threads</h1>
+    <a href="index.html" class="logo-container">
+        <div class="logo-circle">DT</div>
+        <h1>Dala Threads</h1>
+    </a>
     <nav>
         <a href="index.html" id="navHome">Home</a>
         <a href="product.html" id="navProduct">Our Products</a>
-        <a href="contact.html" id="navContact">Contact</a>
+        <a href="contact.html" id="navContact">Contact Us</a>
         <a href="ourservices.html" id="navServices">Services</a>
+        <a href="login.html" id="navLogin">Sign In</a>
     </nav>
     <div class="top-icons">
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass search-icon-inside"></i>
+            <input type="text" id="productSearch" placeholder="Search bags..." onkeyup="filterProducts()">
+        </div>
         <select id="language">
             <option value="en">EN</option>
             <option value="rw">RW</option>
         </select>
         <button onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
-        
         <div class="cart-trigger" onclick="toggleCart()">
             <i class="fa-solid fa-cart-shopping"></i>
             <span class="cart-badge" id="cartBadge">0</span>
@@ -185,108 +315,54 @@
     <h3 id="cartTitle" style="margin-bottom:15px; font-family:'Playfair Display'; border-bottom:2px solid var(--primary); padding-bottom:5px;">Your Shopping Bag</h3>
     <ul id="cartItems" style="list-style:none;"></ul>
     
-    <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:bold; margin-top:15px; padding-top:10px; border-top:1px solid #eee;">
+    <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:bold; margin-top:15px; padding-top:10px; border-top:1px solid rgba(0,0,0,0.1);">
         <span>Total:</span>
         <span><span id="total">0</span> FRW</span>
     </div>
 
-    <div class="momo-box">
-        <strong><i class="fa-solid fa-mobile-button"></i> Pay via MTN MoMo:</strong><br>
-        +250 795 013 119 (Ishimwe Valens)
+    <!-- Email as a clickable red button that pre-fills cart items -->
+    <div class="email-info-box">
+        <a class="email-btn-link" id="emailOrderBtn" href="mailto:keybuhendwa0@gmail.com">
+            <i class="fa-solid fa-envelope"></i> Order via Email
+        </a>
     </div>
 
-    <a href="#" class="checkout-btn" onclick="checkoutWhatsApp('Order Inquiry')">
-        <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
-    </a>
-    <a href="#" class="checkout-btn momo" onclick="checkoutWhatsApp('MoMo Payment')">
-        <i class="fa-solid fa-receipt"></i> Confirm MoMo Payment
-    </a>
+    <div class="checkout-buttons">
+        <button class="checkout-btn whatsapp" onclick="checkoutWhatsApp()">
+            <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+        </button>
+        <!-- USSD: opens phone dialer with *182*1*1*0795013119# pre-written -->
+        <a class="checkout-btn ussd" href="tel:*182*1*1*0795013119%23">
+            <i class="fa-solid fa-phone"></i> Pay via USSD (*182*1*1*0795013119#)
+        </a>
+    </div>
 </div>
 
 <section class="gallery-section">
     <h2 id="galleryTitle">Our Collection</h2>
-    <div class="grid">
-        <div class="card">
-            <img src="bag1.jpg" alt="Classic Beaded Bag">
-            <div class="card-content">
-                <h4>Classic Beaded Bag</h4>
-                <p class="price">25,000 FRW</p>
-                <button class="btn-add" onclick="addToCart('Classic Beaded Bag', 25000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="bag2.jpg" alt="Elegant Bead Purse">
-            <div class="card-content">
-                <h4>Elegant Bead Purse</h4>
-                <p class="price">30,000 FRW</p>
-                <button class="btn-add" onclick="addToCart('Elegant Bead Purse', 30000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="bag3.jpg" alt="Luxury Handbag">
-            <div class="card-content">
-                <h4>Luxury Handbag</h4>
-                <p class="price">40,000 FRW</p>
-                <button class="btn-add" onclick="addToCart('Luxury Handbag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="bag4.jpg" alt="Petite Gold Purse">
-            <div class="card-content">
-                <h4>Petite Gold Purse</h4>
-                <p class="price">45,000 FRW</p>
-                <button class="btn-add" onclick="addToCart('Petite Gold Purse', 45000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="bag5.jpg" alt="Evening Clutch">
-            <div class="card-content">
-                <h4>Evening Clutch</h4>
-                <p class="price">48,000 FRW</p>
-                <button class="btn-add" onclick="addToCart('Evening Clutch', 48000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="bag6.jpg" alt="Bridal Bead Bag">
-            <div class="card-content">
-                <h4>Bridal Bead Bag</h4>
-                <p class="price">45,000 FRW</p>
-                <button class="btn-add" onclick="addToCart('Bridal Bead Bag', 45000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="bag7.jpg" alt="Royal Handbag">
-            <div class="card-content">
-                <h4>Royal Handbag</h4>
-                <p class="price">50,000 FRW</p>
-                <button class="btn-add" onclick="addToCart('Royal Handbag', 50000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="bag8.jpg" alt="Mini Beaded Tote">
-            <div class="card-content">
-                <h4>Mini Beaded Tote</h4>
-                <p class="price">20,000 FRW</p>
-                <button class="btn-add" onclick="addToCart('Mini Beaded Tote', 20000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="bag9.jpg" alt="Heritage Bag">
-            <div class="card-content">
-                <h4>Heritage Bag</h4>
-                <p class="price">40,000 FRW</p>
-                <button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            </div>
-        </div>
-        <div class="card"><img src="bag10.jpg"> <div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div>
-        <div class="card"><img src="bag11.jpg"> <div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div>
-        <div class="card"><img src="bag12.jpg"> <div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div>
-        <div class="card"><img src="bag13.jpg"> <div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div>
-        <div class="card"><img src="bag14.jpg"> <div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div>
-        <div class="card"><img src="bag15.jpg"> <div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div>
-        <div class="card"><img src="bag16.jpg"> <div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div>
-        <div class="card"><img src="bag17.jpg"> <div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div>
-                <div class="card"><img src="bag18.jpg"> <div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div>
+    <div class="grid" id="productGrid">
+        <div class="card"><img src="bag1.jpg" alt="Classic Beaded Bag"><div class="card-content"><h4>Classic Beaded Bag</h4><p class="price">25,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Classic Beaded Bag', 25000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag2.jpg" alt="Elegant Bead Purse"><div class="card-content"><h4>Elegant Bead Purse</h4><p class="price">30,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Elegant Bead Purse', 30000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag3.jpg" alt="Luxury Handbag"><div class="card-content"><h4>Luxury Handbag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Luxury Handbag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag4.jpg" alt="Petite Gold Purse"><div class="card-content"><h4>Petite Gold Purse</h4><p class="price">45,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Petite Gold Purse', 45000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag5.jpg" alt="Evening Clutch"><div class="card-content"><h4>Evening Clutch</h4><p class="price">48,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Evening Clutch', 48000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag6.jpg" alt="Bridal Bead Bag"><div class="card-content"><h4>Bridal Bead Bag</h4><p class="price">45,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Bridal Bead Bag', 45000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag7.jpg" alt="Royal Handbag"><div class="card-content"><h4>Royal Handbag</h4><p class="price">50,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Royal Handbag', 50000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag8.jpg" alt="Mini Beaded Tote"><div class="card-content"><h4>Mini Beaded Tote</h4><p class="price">20,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Mini Beaded Tote', 20000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag9.jpg" alt="Heritage Bag"><div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag10.jpg" alt="Triangle Bag"><div class="card-content"><h4>Triangle Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Triangle Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag11.jpg" alt="Blue Bag"><div class="card-content"><h4>Blue Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Blue Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag12.jpg" alt="Green Bag"><div class="card-content"><h4>Green Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Green Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag13.jpg" alt="Elegant Bag"><div class="card-content"><h4>Elegant Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Elegant Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag14.jpg" alt="Light-Blue Bag"><div class="card-content"><h4>Light-Blue Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Light-Blue Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag15.jpg" alt="Classic Purse"><div class="card-content"><h4>Classic Purse</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Classic Purse', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag16.jpg" alt="Occasional Bag"><div class="card-content"><h4>Occasional Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Occasional Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag17.jpg" alt="White BackPack"><div class="card-content"><h4>White BackPack</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('White BackPack', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag18.jpg" alt="Fashion BackPack"><div class="card-content"><h4>Fashion BackPack</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Fashion BackPack', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag19.jpg" alt="Mothers Bag"><div class="card-content"><h4>Mothers Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Mothers Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag20.jpg" alt="Evening Bag"><div class="card-content"><h4>Evening Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Evening Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag21.jpg" alt="Wedding Bag"><div class="card-content"><h4>Wedding Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Wedding Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+        <div class="card"><img src="bag22.jpg" alt="Queen Purse"><div class="card-content"><h4>Queen Purse</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Queen Purse', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
     </div>
 </section>
 
@@ -296,11 +372,20 @@
         <a href="https://www.instagram.com/dala_threads" class="social-icon instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
         <a href="https://wa.me/250795013119" class="social-icon whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="https://www.facebook.com/search/top?q=buhendwa%20daniella" class="social-icon facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.tiktok.com/@dala_threads" class="social-icon tiktok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
     </div>
 </footer>
 
 <script>
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function filterProducts() {
+    const input = document.getElementById('productSearch').value.toLowerCase();
+    document.querySelectorAll('.grid .card').forEach(card => {
+        const title = card.querySelector('h4') ? card.querySelector('h4').innerText.toLowerCase() : "";
+        card.classList.toggle('hidden', !title.includes(input));
+    });
+}
 
 function toggleCart() {
     document.getElementById("cart-dropdown").classList.toggle("active");
@@ -309,7 +394,6 @@ function toggleCart() {
 function addToCart(name, price) {
     cart.push({ id: Date.now(), name, price });
     saveAndRefresh();
-    // Open cart automatically when adding item
     document.getElementById("cart-dropdown").classList.add("active");
 }
 
@@ -337,8 +421,8 @@ function displayCart() {
         li.innerHTML = `
             <span>${item.name}</span>
             <div>
-                <span style="margin-right:10px; font-weight:600;">${item.price.toLocaleString()}</span>
-                <button class="remove-btn" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button>
+                <span style="margin-right:10px; font-weight:600;">${item.price.toLocaleString()} FRW</span>
+                <button class="remove-btn" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash-can"></i></button>
             </div>
         `;
         list.appendChild(li);
@@ -347,11 +431,25 @@ function displayCart() {
     
     totalEl.innerText = total.toLocaleString();
     badge.innerText = cart.length;
+    updateEmailBtn();
 }
 
-function checkoutWhatsApp(paymentType) {
+function updateEmailBtn() {
+    const btn = document.getElementById("emailOrderBtn");
+    if (cart.length === 0) {
+        btn.href = "mailto:keybuhendwa0@gmail.com";
+        return;
+    }
+    const subject = "New Order from Dala Threads";
+    let body = "I would like to purchase the following items from Dala Threads:\n\nORDER DETAILS:\n--------------\n\n";
+    cart.forEach((item, i) => { body += `${i + 1}. ${item.name} - ${item.price.toLocaleString()} FRW\n`; });
+    body += `\nTOTAL: ${document.getElementById("total").innerText} FRW\n\nPlease confirm availability and provide payment instructions.\n\nThank you!`;
+    btn.href = `mailto:keybuhendwa0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function checkoutWhatsApp() {
     if (cart.length === 0) { alert("Your cart is empty!"); return; }
-    let message = `*Dala Threads - New Order*%0AType: ${paymentType}%0A%0A*Items:*%0A`;
+    let message = `*Dala Threads - New Order*%0A%0A*Items:*%0A`;
     cart.forEach(item => { message += `- ${item.name} (${item.price.toLocaleString()} FRW)%0A`; });
     message += `%0A*Total: ${document.getElementById("total").innerText} FRW*`;
     window.open(`https://wa.me/250795013119?text=${message}`, '_blank');
@@ -365,7 +463,7 @@ function toggleTheme() {
 }
 
 const translations = {
-    en: { gallery: "Our Collection", cart: "Your Shopping Bag", home: "Home", prod: "Our Products", cont: "Contact", serv: "Services" },
+    en: { gallery: "Our Collection", cart: "Your Shopping Bag", home: "Home", prod: "Our Products", cont: "Contact Us", serv: "Services" },
     rw: { gallery: "Ibihangano Byacu", cart: "Ikarita yawe", home: "Ahabanza", prod: "Ibicuruzwa", cont: "Twandikire", serv: "Serivisi" }
 };
 
@@ -384,7 +482,7 @@ function applyTranslations(l) {
 
 window.onload = () => {
     displayCart();
-    if(localStorage.getItem("theme") === "dark") {
+    if (localStorage.getItem("theme") === "dark") {
         document.body.classList.add("dark");
         document.getElementById("themeIcon").className = "fa-solid fa-sun";
     }
