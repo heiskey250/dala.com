@@ -2,237 +2,547 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dala Threads | Contact</title>
+    <title>Dala Threads | Contact Us</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* Exact Colors from your screenshot */
-        :root { 
-            /* The specific Pinkish-Wine to Forest Green gradient */
-            --header-gradient: linear-gradient(to right, #e0389aff, #4a773c); 
-            --wine-pink: #702046;
-            --forest-green: #4a773c;
-            --bg: #fdfaff; 
-            --text: #2d1f3d; 
-            --card: #ffffff; 
-        }
-        body.dark { 
-            --bg: #1c1624; 
-            --text: #f5f5f5; 
-            --card: #2a2235; 
+        :root {
+            --gold: #c9a84c;
+            --gold-light: #e8c97a;
+            --deep: #0f0820;
+            --surface: #160d2a;
+            --surface2: #1e1235;
+            --rose: #8b2252;
+            --text: #f5ede0;
+            --text-muted: rgba(245,237,224,0.5);
+            --border: rgba(201,168,76,0.15);
+            --transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            --header-h: 72px;
         }
 
-        body { 
-            font-family: 'DM Sans', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            transition: 0.3s; 
-            margin: 0; 
+        body.light {
+            --deep: #f7f1e8;
+            --surface: #ede4d4;
+            --surface2: #e4d8c4;
+            --text: #1a0f2e;
+            --text-muted: rgba(26,15,46,0.5);
+            --border: rgba(139,34,82,0.15);
         }
 
-        /* --- HEADER (Matching your screenshot exactly) --- */
-        header { 
-            background: var(--header-gradient); 
-            color: #fff; 
-            padding: 15px 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+
+        body {
+            font-family:'Jost',sans-serif;
+            background:var(--deep);
+            color:var(--text);
+            overflow-x:hidden;
+            transition:background 0.4s,color 0.4s;
+            min-height:100vh;
         }
+
+        ::-webkit-scrollbar { width:5px; }
+        ::-webkit-scrollbar-track { background:var(--deep); }
+        ::-webkit-scrollbar-thumb { background:var(--gold); border-radius:3px; }
+
+        /* ── HEADER ── */
+        header {
+            position:fixed; top:0; width:100%; height:var(--header-h);
+            z-index:1000; padding:0 5%;
+            display:flex; align-items:center; justify-content:space-between;
+            background:rgba(15,8,32,0.8);
+            backdrop-filter:blur(24px);
+            border-bottom:1px solid var(--border);
+            transition:var(--transition);
+        }
+
+        body.light header { background:rgba(247,241,232,0.9); }
+
+        header.scrolled {
+            height:60px;
+            background:rgba(8,3,20,0.97);
+            box-shadow:0 4px 30px rgba(0,0,0,0.4);
+        }
+
+        body.light header.scrolled { background:rgba(247,241,232,0.98); }
 
         .logo-container {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            gap: 12px;
-            color: #fff;
+            display:flex; align-items:center; gap:12px;
+            text-decoration:none; color:var(--text);
         }
 
         .logo-circle {
-            background: #fff;
-            color: var(--wine-pink);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
+            width:40px; height:40px; border-radius:50%;
+            background:linear-gradient(135deg,var(--gold),var(--rose));
+            display:flex; align-items:center; justify-content:center;
+            font-family:'Cormorant Garamond',serif;
+            font-size:0.95rem; font-weight:600; color:#fff;
+            box-shadow:0 0 18px rgba(201,168,76,0.35);
+            flex-shrink:0;
         }
 
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            margin: 0;
-            color: #fff;
+        .logo-container h1 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.45rem; font-weight:400; letter-spacing:2px;
+            background:linear-gradient(90deg,var(--gold-light),var(--text));
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+            background-clip:text;
         }
 
-        nav a { 
-            color: #fff; 
-            margin: 0 12px; 
-            text-decoration: none; 
-            font-weight: 500; 
-            font-size: 0.95rem;
+        nav { display:flex; gap:26px; align-items:center; }
+
+        nav a {
+            color:var(--text-muted); text-decoration:none;
+            font-size:0.78rem; letter-spacing:1.8px;
+            text-transform:uppercase; font-weight:500;
+            transition:var(--transition); position:relative;
         }
 
-        /* --- CONTACT CONTENT --- */
-        .contact-container { 
-            max-width: 900px; 
-            margin: 60px auto; 
-            padding: 20px; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 40px; 
+        nav a::after {
+            content:''; position:absolute; bottom:-3px; left:0;
+            width:0; height:1px; background:var(--gold);
+            transition:var(--transition);
         }
 
-        h2 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 2.5rem; 
-            color: var(--wine-pink); 
-            margin-bottom: 10px;
-        }
-        body.dark h2 { color: #fff; }
+        nav a:hover { color:var(--gold-light); }
+        nav a:hover::after { width:100%; }
+        nav a.active { color:var(--gold-light); }
+        nav a.active::after { width:100%; }
 
-        .info-box i { 
-            color: var(--forest-green); 
-            font-size: 22px; 
-            margin-bottom: 15px; 
-        }
+        .top-icons { display:flex; gap:10px; align-items:center; }
 
-        form { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
-            background: var(--card); 
-            padding: 30px; 
-            border-radius: 15px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+        .icon-btn {
+            width:36px; height:36px; border-radius:50%;
+            background:rgba(201,168,76,0.08);
+            border:1px solid var(--border);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--gold-light); font-size:0.85rem;
+            cursor:pointer; transition:var(--transition); outline:none;
         }
 
-        input, textarea { 
-            padding: 12px; 
-            border-radius: 8px; 
-            border: 1px solid #ddd; 
-            background: var(--bg); 
-            color: var(--text); 
+        .icon-btn:hover {
+            background:rgba(201,168,76,0.2);
+            border-color:var(--gold); transform:scale(1.08);
         }
 
-        .btn-send { 
-            background: var(--header-gradient); 
-            color: white; 
-            border: none; 
-            padding: 14px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            transition: 0.3s;
-        }
-        .btn-send:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        #language {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 1px solid white;
-            padding: 2px 5px;
-            border-radius: 4px;
+        .top-icons select {
+            background:rgba(201,168,76,0.08);
+            border:1px solid var(--border);
+            color:var(--gold-light); padding:6px 10px;
+            border-radius:8px; cursor:pointer;
+            font-family:'Jost',sans-serif;
+            font-size:0.76rem; transition:var(--transition); outline:none;
         }
 
-        @media(max-width: 768px) { .contact-container { grid-template-columns: 1fr; } }
+        .top-icons select:hover { background:rgba(201,168,76,0.18); border-color:var(--gold); }
 
-        /* ==========================================================================
-   MEDIA QUERIES - RESPONSIVE DESIGN
-   ========================================================================== */
+        /* ── PAGE HERO ── */
+        .page-hero {
+            padding-top:var(--header-h);
+            background:
+                radial-gradient(ellipse 70% 60% at 15% 50%, rgba(139,34,82,0.22) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 85% 50%, rgba(201,168,76,0.1) 0%, transparent 60%),
+                linear-gradient(160deg,#08031a 0%,#140830 60%,#0f0820 100%);
+            position:relative; overflow:hidden;
+        }
 
-/* --- 1. Tablets & Small Desktops (Under 992px) --- */
-@media screen and (max-width: 992px) {
-    header {
-        padding: 15px 3%; /* Reduced padding for more space */
-    }
+        body.light .page-hero {
+            background:
+                radial-gradient(ellipse 70% 60% at 15% 50%, rgba(139,34,82,0.08) 0%, transparent 60%),
+                linear-gradient(160deg,#f0e6d3 0%,#ede4d4 100%);
+        }
 
-    nav {
-        gap: 10px; /* Tighter navigation spacing */
-    }
+        .page-hero-inner {
+            max-width:1100px; margin:0 auto;
+            padding:70px 5% 60px;
+            text-align:center;
+        }
 
-    nav a {
-        font-size: 0.85rem;
-        margin: 0 8px;
-    }
+        .page-eyebrow {
+            display:inline-flex; align-items:center; gap:10px;
+            font-size:0.66rem; letter-spacing:4px; text-transform:uppercase;
+            color:var(--gold); margin-bottom:16px;
+            animation:fadeUp 0.8s ease both;
+        }
 
-    .grid {
-        grid-template-columns: repeat(2, 1fr); /* Two columns instead of three */
-        gap: 20px;
-    }
-}
+        .page-eyebrow::before,.page-eyebrow::after {
+            content:''; width:24px; height:1px;
+            background:var(--gold); opacity:0.5;
+        }
 
-/* --- 2. Small Tablets & Large Phones (Under 768px) --- */
-@media screen and (max-width: 768px) {
-    header {
-        flex-direction: column; /* Stack logo and nav vertically */
-        gap: 15px;
-        text-align: center;
-    }
+        .page-hero h2 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:clamp(2.4rem,5vw,4rem);
+            font-weight:300; line-height:1.15;
+            margin-bottom:16px;
+            animation:fadeUp 0.8s ease 0.1s both;
+        }
 
-    nav {
-        display: flex;
-        flex-wrap: wrap; /* Wrap links if they don't fit in one line */
-        justify-content: center;
-    }
+        .page-hero h2 em { font-style:italic; color:var(--gold-light); }
 
-    .hero {
-        height: 40vh; /* Shorter hero section for mobile */
-    }
+        .page-hero p {
+            font-size:0.95rem; color:var(--text-muted);
+            max-width:480px; margin:0 auto; line-height:1.85;
+            animation:fadeUp 0.8s ease 0.2s both;
+        }
 
-    .hero h2 {
-        font-size: 1.8rem; /* Scaled down typography */
-    }
+        .hero-divider {
+            height:1px; width:100%;
+            background:linear-gradient(90deg,transparent,var(--gold),transparent);
+            opacity:0.25;
+        }
 
-    #cart-dropdown {
-        width: 90%; /* Cart fills the screen width */
-        right: 5%;
-        left: 5%;
-    }
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(22px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
 
-    .footer-grid {
-        grid-template-columns: 1fr; /* Stack footer elements */
-        text-align: center;
-        gap: 30px;
-    }
-}
+        /* ── CONTACT MAIN ── */
+        .contact-main {
+            max-width:1100px; margin:0 auto;
+            padding:80px 5% 100px;
+            display:grid;
+            grid-template-columns:1fr 1.4fr;
+            gap:60px;
+            align-items:start;
+        }
 
-/* --- 3. Mobile Phones (Under 480px) --- */
-@media screen and (max-width: 480px) {
-    .grid {
-        grid-template-columns: 1fr; /* Single column for bag images */
-        padding: 20px 5%;
-    }
+        /* ── LEFT — INFO PANEL ── */
+        .info-panel {}
 
-    .logo-container h1 {
-        font-size: 1.3rem; /* Compact logo text */
-    }
+        .info-tag {
+            font-size:0.66rem; letter-spacing:4px;
+            text-transform:uppercase; color:var(--gold);
+            margin-bottom:14px; display:block;
+            animation:fadeUp 0.8s ease 0.1s both;
+        }
 
-    .top-icons {
-        width: 100%;
-        justify-content: space-around;
-        padding-top: 10px;
-    }
+        .info-panel h3 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:clamp(1.8rem,3vw,2.6rem);
+            font-weight:300; line-height:1.2;
+            margin-bottom:16px;
+            animation:fadeUp 0.8s ease 0.15s both;
+        }
 
-    .card img {
-        height: 280px; /* Adjusted image height for small screens */
-    }
+        .info-panel h3 em { font-style:italic; color:var(--gold-light); }
 
-    .btn-buy, .btn-add {
-        padding: 15px; /* Larger touch targets for fingers */
-    }
-}
+        .info-panel > p {
+            font-size:0.9rem; color:var(--text-muted);
+            line-height:1.85; margin-bottom:42px;
+            animation:fadeUp 0.8s ease 0.2s both;
+        }
+
+        /* contact items */
+        .contact-items {
+            display:flex; flex-direction:column; gap:0;
+            animation:fadeUp 0.8s ease 0.25s both;
+        }
+
+        .contact-item {
+            display:flex; align-items:flex-start; gap:18px;
+            padding:20px 0;
+            border-bottom:1px solid var(--border);
+            transition:var(--transition);
+        }
+
+        .contact-item:first-child { border-top:1px solid var(--border); }
+
+        .contact-item:hover { padding-left:6px; }
+
+        .contact-item-icon {
+            width:42px; height:42px; border-radius:10px;
+            background:rgba(201,168,76,0.08);
+            border:1px solid var(--border);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--gold); font-size:0.95rem;
+            flex-shrink:0; transition:var(--transition);
+        }
+
+        .contact-item:hover .contact-item-icon {
+            background:rgba(201,168,76,0.18);
+            border-color:var(--gold);
+        }
+
+        .contact-item-text {}
+
+        .contact-item-label {
+            font-size:0.66rem; letter-spacing:2.5px;
+            text-transform:uppercase; color:var(--text-muted);
+            margin-bottom:4px;
+        }
+
+        .contact-item-value {
+            font-size:0.92rem; font-weight:500;
+            color:var(--text); letter-spacing:0.3px;
+        }
+
+        /* social strip */
+        .social-strip {
+            display:flex; gap:10px; margin-top:36px;
+            animation:fadeUp 0.8s ease 0.3s both;
+        }
+
+        .social-strip a {
+            width:38px; height:38px; border-radius:50%;
+            background:rgba(201,168,76,0.08);
+            border:1px solid rgba(201,168,76,0.18);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--gold-light); font-size:0.88rem;
+            text-decoration:none; transition:var(--transition);
+        }
+
+        .social-strip a:hover {
+            background:var(--gold); color:var(--deep);
+            transform:translateY(-3px);
+            box-shadow:0 6px 16px rgba(201,168,76,0.3);
+        }
+
+        /* ── RIGHT — FORM PANEL ── */
+        .form-panel {
+            background:linear-gradient(160deg,var(--surface),var(--surface2));
+            border:1px solid var(--border);
+            border-radius:22px; padding:44px 40px;
+            box-shadow:0 30px 70px rgba(0,0,0,0.35);
+            animation:fadeUp 0.8s ease 0.2s both;
+            position:relative; overflow:hidden;
+        }
+
+        .form-panel::before {
+            content:'';
+            position:absolute; top:-60px; right:-60px;
+            width:200px; height:200px; border-radius:50%;
+            background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);
+            pointer-events:none;
+        }
+
+        .form-panel::after {
+            content:'';
+            position:absolute; bottom:-40px; left:-30px;
+            width:160px; height:160px; border-radius:50%;
+            background:radial-gradient(circle,rgba(139,34,82,0.1),transparent 70%);
+            pointer-events:none;
+        }
+
+        .form-panel h4 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.7rem; font-weight:300;
+            margin-bottom:6px; letter-spacing:0.5px;
+            position:relative; z-index:1;
+        }
+
+        .form-panel > p {
+            font-size:0.83rem; color:var(--text-muted);
+            margin-bottom:30px; line-height:1.7;
+            position:relative; z-index:1;
+        }
+
+        .form-grid {
+            display:grid; grid-template-columns:1fr 1fr;
+            gap:14px; margin-bottom:14px;
+            position:relative; z-index:1;
+        }
+
+        .form-group {
+            display:flex; flex-direction:column; gap:6px;
+            position:relative; z-index:1;
+        }
+
+        .form-group.full { grid-column:span 2; }
+
+        .form-group label {
+            font-size:0.66rem; letter-spacing:2px;
+            text-transform:uppercase; color:var(--text-muted);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            background:rgba(255,255,255,0.04);
+            border:1px solid var(--border);
+            border-radius:10px;
+            padding:13px 16px;
+            color:var(--text);
+            font-family:'Jost',sans-serif;
+            font-size:0.88rem;
+            outline:none;
+            transition:var(--transition);
+            resize:none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color:var(--text-muted);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color:var(--gold);
+            background:rgba(201,168,76,0.06);
+            box-shadow:0 0 0 3px rgba(201,168,76,0.08);
+        }
+
+        .form-group select option {
+            background:var(--surface2); color:var(--text);
+        }
+
+        .form-group textarea { height:130px; }
+
+        .btn-send {
+            width:100%; padding:14px;
+            border-radius:12px; border:none; cursor:pointer;
+            font-family:'Jost',sans-serif; font-weight:700;
+            font-size:0.82rem; letter-spacing:2px;
+            text-transform:uppercase;
+            background:linear-gradient(135deg,var(--gold),var(--gold-light));
+            color:var(--deep);
+            transition:var(--transition);
+            margin-top:6px;
+            display:flex; align-items:center; justify-content:center; gap:10px;
+            position:relative; z-index:1;
+        }
+
+        .btn-send:hover {
+            transform:translateY(-2px);
+            box-shadow:0 12px 30px rgba(201,168,76,0.4);
+            filter:brightness(1.05);
+        }
+
+        .btn-send:active { transform:translateY(0); }
+
+        /* success state */
+        .form-success {
+            display:none;
+            text-align:center; padding:40px 20px;
+            position:relative; z-index:1;
+        }
+
+        .form-success .success-icon {
+            width:60px; height:60px; border-radius:50%;
+            background:rgba(201,168,76,0.12);
+            border:1px solid var(--gold);
+            display:flex; align-items:center; justify-content:center;
+            margin:0 auto 20px;
+            font-size:1.4rem; color:var(--gold);
+        }
+
+        .form-success h4 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.8rem; font-weight:300; margin-bottom:10px;
+        }
+
+        .form-success p {
+            font-size:0.88rem; color:var(--text-muted); line-height:1.7;
+        }
+
+        /* ── MAP STRIP ── */
+        .map-strip {
+            background:rgba(201,168,76,0.02);
+            border-top:1px solid var(--border);
+            border-bottom:1px solid var(--border);
+            padding:0;
+            overflow:hidden;
+        }
+
+        .map-strip iframe {
+            width:100%; height:240px; display:block;
+            filter:brightness(0.65) saturate(0.4) hue-rotate(200deg);
+            border:none;
+            transition:var(--transition);
+        }
+
+        .map-strip iframe:hover {
+            filter:brightness(0.8) saturate(0.6) hue-rotate(200deg);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background:#07030f;
+            border-top:1px solid rgba(201,168,76,0.1);
+            padding:64px 5% 28px;
+        }
+
+        .footer-grid {
+            display:grid;
+            grid-template-columns:2fr 1fr 1fr 1.5fr;
+            gap:48px; margin-bottom:44px;
+            max-width:1100px; margin-left:auto; margin-right:auto;
+        }
+
+        .footer-brand h2 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.7rem; font-weight:300;
+            color:var(--gold-light); letter-spacing:2px; margin-bottom:13px;
+        }
+
+        .footer-brand p {
+            font-size:0.83rem; color:var(--text-muted);
+            line-height:1.85; margin-bottom:24px;
+        }
+
+        .socials { display:flex; gap:10px; }
+
+        .socials a {
+            width:36px; height:36px; border-radius:50%;
+            background:rgba(201,168,76,0.08);
+            border:1px solid rgba(201,168,76,0.18);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--gold-light); font-size:0.85rem;
+            text-decoration:none; transition:var(--transition);
+        }
+
+        .socials a:hover {
+            background:var(--gold); color:var(--deep); transform:translateY(-3px);
+        }
+
+        .footer-col h4 {
+            font-size:0.64rem; letter-spacing:3px;
+            text-transform:uppercase; color:var(--gold); margin-bottom:18px;
+        }
+
+        .footer-col a,.footer-col p {
+            display:block; color:var(--text-muted);
+            text-decoration:none; font-size:0.82rem;
+            margin-bottom:9px; transition:var(--transition); line-height:1.6;
+        }
+
+        .footer-col a:hover { color:var(--gold-light); padding-left:4px; }
+
+        .footer-bottom {
+            padding-top:20px;
+            border-top:1px solid rgba(201,168,76,0.08);
+            display:flex; justify-content:space-between;
+            font-size:0.74rem; color:var(--text-muted);
+            max-width:1100px; margin:0 auto;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width:900px) {
+            .contact-main { grid-template-columns:1fr; gap:40px; }
+            .footer-grid { grid-template-columns:1fr 1fr; gap:28px; }
+        }
+
+        @media (max-width:768px) {
+            header { flex-direction:column; height:auto; padding:14px 5%; gap:12px; }
+            nav { flex-wrap:wrap; justify-content:center; gap:14px; }
+            .page-hero-inner { padding:50px 5% 40px; }
+            .form-grid { grid-template-columns:1fr; }
+            .form-group.full { grid-column:span 1; }
+            .form-panel { padding:30px 24px; }
+        }
+
+        @media (max-width:520px) {
+            .footer-grid { grid-template-columns:1fr; }
+        }
     </style>
 </head>
 <body>
 
-<header>
+<!-- ── HEADER ── -->
+<header id="mainHeader">
     <a href="index.html" class="logo-container">
         <div class="logo-circle">DT</div>
         <h1>Dala Threads</h1>
@@ -240,62 +550,297 @@
     <nav>
         <a href="index.html" id="navHome">Home</a>
         <a href="product.html" id="navProduct">Our Products</a>
-        <a href="contact.html" id="navContact">Contact Us</a>
+        <a href="contact.html" id="navContact" class="active">Contact Us</a>
         <a href="ourservices.html" id="navServices">Services</a>
         <a href="login.html" id="navLogin">Sign In</a>
     </nav>
-    <div style="display:flex; gap:10px; align-items:center;">
-        <select id="language"><option value="en">EN</option><option value="rw">RW</option></select>
-        <button onclick="toggleTheme()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-moon"></i></button>
+    <div class="top-icons">
+        <select id="language" onchange="applyTranslations(this.value)">
+            <option value="en">EN</option>
+            <option value="rw">RW</option>
+        </select>
+        <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <i class="fa-solid fa-sun" id="themeIcon"></i>
+        </button>
     </div>
 </header>
 
-<div class="contact-container">
-    <div>
-        <h2 id="contTitle">Contact Us</h2>
-        <p id="contText">Have a question or want a custom design? Get in touch!</p>
-        <div class="info-box">
-            <br>
-            <i class="fa-solid fa-location-dot"></i> <p>Kigali, Rwanda</p><br>
-            <i class="fa-solid fa-phone"></i> <p>+250 795 013 119</p><br>
-            <i class="fa-solid fa-envelope"></i> <p>info@dalathreads.com</p>
-        </div>
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+    <div class="page-hero-inner">
+        <div class="page-eyebrow" id="pageEyebrow">We'd love to hear from you</div>
+        <h2 id="pageTitle">Get in <em>Touch</em></h2>
+        <p id="pageSubtitle">Whether you have a question, want a custom design, or simply want to say hello — we're here for you.</p>
     </div>
-    <form onsubmit="event.preventDefault(); alert('Message sent!');">
-        <input type="text" placeholder="Name" required>
-        <input type="email" placeholder="Email" required>
-        <textarea placeholder="Message" rows="5" required></textarea>
-        <button type="submit" class="btn-send">Send Message</button>
-    </form>
+    <div class="hero-divider"></div>
 </div>
 
+<!-- ── CONTACT MAIN ── -->
+<div class="contact-main">
+
+    <!-- LEFT: INFO PANEL -->
+    <div class="info-panel">
+        <span class="info-tag" id="infoTag">Reach us directly</span>
+        <h3 id="infoTitle">Let's Start a <em>Conversation</em></h3>
+        <p id="infoText">Every order, question, and custom request matters to us. Reach out through any of the channels below and we'll get back to you as soon as possible.</p>
+
+        <div class="contact-items">
+            <div class="contact-item">
+                <div class="contact-item-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="contact-item-text">
+                    <div class="contact-item-label" id="labelLocation">Location</div>
+                    <div class="contact-item-value">Ruyenzi, Kamonyi, Rwanda</div>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-item-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="contact-item-text">
+                    <div class="contact-item-label" id="labelPhone">WhatsApp</div>
+                    <div class="contact-item-value">+250 795 013 119</div>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="contact-item-text">
+                    <div class="contact-item-label" id="labelEmail">Email</div>
+                    <div class="contact-item-value">keybuhendwa0@gmail.com</div>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-item-icon"><i class="fa-regular fa-clock"></i></div>
+                <div class="contact-item-text">
+                    <div class="contact-item-label" id="labelHours">Hours</div>
+                    <div class="contact-item-value" id="hoursValue">Mon – Sat, 8am – 6pm</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-strip">
+            <a href="https://www.instagram.com/dala_threads" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/250795013119" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/search/top?q=buhendwa%20daniella" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.tiktok.com/@dala_threads" target="_blank" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </div>
+
+    <!-- RIGHT: FORM PANEL -->
+    <div class="form-panel">
+        <h4 id="formTitle">Send a Message</h4>
+        <p id="formSubtitle">Fill in the form below and we'll respond within 24 hours.</p>
+
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label id="labelName">Your Name</label>
+                    <input type="text" id="inputName" placeholder="e.g. Daniella" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelEmailField">Email Address</label>
+                    <input type="email" id="inputEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelPhoneField">Phone / WhatsApp</label>
+                    <input type="tel" id="inputPhone" placeholder="+250 7xx xxx xxx">
+                </div>
+                <div class="form-group">
+                    <label id="labelSubject">Subject</label>
+                    <select id="inputSubject">
+                        <option value="order" id="optOrder">Custom Order</option>
+                        <option value="question" id="optQuestion">General Question</option>
+                        <option value="wholesale" id="optWholesale">Wholesale</option>
+                        <option value="other" id="optOther">Other</option>
+                    </select>
+                </div>
+                <div class="form-group full">
+                    <label id="labelMessage">Your Message</label>
+                    <textarea id="inputMessage" placeholder="Tell us about your enquiry, custom design idea, or any question…" required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn-send" id="submitBtn">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span id="btnText">Send Message</span>
+            </button>
+        </form>
+
+        <!-- Success state -->
+        <div class="form-success" id="formSuccess">
+            <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+            <h4 id="successTitle">Message Sent!</h4>
+            <p id="successText">Thank you for reaching out. We'll get back to you within 24 hours. 🙏</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- ── MAP STRIP ── -->
+<div class="map-strip">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15949.613386348604!2d29.938885699999997!3d-1.9936856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca4377b5a1b31%3A0x8979857321590483!2sRuyenzi!5e0!3m2!1sen!2srw!4v1700000000000!5m2!1sen!2srw"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Dala Threads location">
+    </iframe>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h2>Dala Threads</h2>
+            <p>Handmade in Rwanda with love. We bring elegance to your wardrobe through traditional beadwork passed down through generations.</p>
+            <div class="socials">
+                <a href="https://www.instagram.com/dala_threads" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/250795013119" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/search/top?q=buhendwa%20daniella" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/@dala_threads" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="index.html">Home</a>
+            <a href="product.html">Our Products</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="ourservices.html">Services</a>
+            <a href="login.html">Sign In</a>
+        </div>
+        <div class="footer-col">
+            <h4>Support</h4>
+            <a href="#">Shipping Policy</a>
+            <a href="#">Return Policy</a>
+            <a href="#">FAQs</a>
+            <a href="#">Size Guide</a>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <p><i class="fa-solid fa-location-dot" style="color:var(--gold);margin-right:6px;"></i>Ruyenzi, Kamonyi, Rwanda</p>
+            <p><i class="fa-brands fa-whatsapp" style="color:var(--gold);margin-right:6px;"></i>+250 795 013 119</p>
+            <p><i class="fa-solid fa-envelope" style="color:var(--gold);margin-right:6px;"></i>keybuhendwa0@gmail.com</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Dala Threads. All rights reserved.</span>
+        <span>Handmade with ♥ in Rwanda</span>
+    </div>
+</footer>
+
 <script>
-    function toggleTheme() {
-        document.body.classList.toggle("dark");
-        localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+// ── FORM SUBMIT ──────────────────────────────────────────────
+function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    btn.disabled = true;
+    btnText.textContent = 'Sending…';
+    btn.style.opacity = '0.7';
+
+    setTimeout(() => {
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+    }, 1200);
+}
+
+// ── HEADER SCROLL ────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+    document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── THEME ────────────────────────────────────────────────────
+function toggleTheme() {
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    localStorage.setItem('dtTheme', isLight ? 'light' : 'dark');
+    document.getElementById('themeIcon').className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+}
+
+// ── TRANSLATIONS ─────────────────────────────────────────────
+const T = {
+    en: {
+        eyebrow:"We'd love to hear from you",
+        title:"Get in <em>Touch</em>",
+        subtitle:"Whether you have a question, want a custom design, or simply want to say hello — we're here for you.",
+        infoTag:"Reach us directly",
+        infoTitle:"Let's Start a <em>Conversation</em>",
+        infoText:"Every order, question, and custom request matters to us. Reach out through any channel below and we'll get back to you soon.",
+        labelLocation:"Location", labelPhone:"WhatsApp", labelEmail:"Email", labelHours:"Hours",
+        hoursValue:"Mon – Sat, 8am – 6pm",
+        formTitle:"Send a Message",
+        formSubtitle:"Fill in the form below and we'll respond within 24 hours.",
+        labelName:"Your Name", labelEmailField:"Email Address",
+        labelPhoneField:"Phone / WhatsApp", labelSubject:"Subject",
+        labelMessage:"Your Message", btnText:"Send Message",
+        optOrder:"Custom Order", optQuestion:"General Question",
+        optWholesale:"Wholesale", optOther:"Other",
+        successTitle:"Message Sent!",
+        successText:"Thank you for reaching out. We'll get back to you within 24 hours. 🙏",
+        home:"Home", prod:"Our Products", cont:"Contact Us", serv:"Services", login:"Sign In"
+    },
+    rw: {
+        eyebrow:"Twishimiye kumva inkuru zawe",
+        title:"Twandikire <em>Ubu</em>",
+        subtitle:"Ufite ikibazo, ushaka igicuruzwa cyihariye, cyangwa ushaka gutuganiriza — turimo.",
+        infoTag:"Twegereze directly",
+        infoTitle:"Reka Dutangire <em>Ikiganiro</em>",
+        infoText:"Buri itumba, ikibazo, n'icyifuzo cyihariye bigira akamaro. Twandikire ukoresheje umwanya uwo ari wo wose.",
+        labelLocation:"Aho tubarizwa", labelPhone:"WhatsApp", labelEmail:"Imeyili", labelHours:"Amasaha",
+        hoursValue:"Ku wa mbere – Kuwa gatandatu, 8am – 6pm",
+        formTitle:"Twoherereze Ubutumwa",
+        formSubtitle:"Uzuza ifishi hano kandi tuzagusubiza mu masaha 24.",
+        labelName:"Amazina Yawe", labelEmailField:"Imeyili Yawe",
+        labelPhoneField:"Telefone / WhatsApp", labelSubject:"Ingingo",
+        labelMessage:"Ubutumwa Bwawe", btnText:"Ohereza Ubutumwa",
+        optOrder:"Itumba Ryihariye", optQuestion:"Ikibazo Rusange",
+        optWholesale:"Ubucuruzi Bunini", optOther:"Ikindi",
+        successTitle:"Ubutumwa Bwoherejwe!",
+        successText:"Urakoze kutwandikira. Tuzagusubiza mu masaha 24. 🙏",
+        home:"Ahabanza", prod:"Ibicuruzwa", cont:"Twandikire", serv:"Serivisi", login:"Injira"
     }
-    const translations = {
-        en: { home: "Home", prod: "Our Products", cont: "Contact Us", serv: "Services", title: "Contact Us", text: "Have a question? Get in touch!" },
-        rw: { home: "Ahabanza", prod: "Ibicuruzwa", cont: "Twandikire", serv: "Serivisi", title: "Twandikire", text: "Ufite ikibazo? Twandikire hano!" }
-    };
-    document.getElementById("language").addEventListener("change", (e) => {
-        localStorage.setItem("language", e.target.value);
-        applySettings(e.target.value);
-    });
-    function applySettings(l) {
-        document.getElementById("navHome").innerText = translations[l].home;
-        document.getElementById("navProduct").innerText = translations[l].prod;
-        document.getElementById("navContact").innerText = translations[l].cont;
-        document.getElementById("navServices").innerText = translations[l].serv;
-        document.getElementById("contTitle").innerText = translations[l].title;
-        document.getElementById("contText").innerText = translations[l].text;
+};
+
+function applyTranslations(l) {
+    const t = T[l] || T.en;
+    localStorage.setItem('dtLang', l);
+    document.getElementById('pageEyebrow').textContent    = t.eyebrow;
+    document.getElementById('pageTitle').innerHTML        = t.title;
+    document.getElementById('pageSubtitle').textContent   = t.subtitle;
+    document.getElementById('infoTag').textContent        = t.infoTag;
+    document.getElementById('infoTitle').innerHTML        = t.infoTitle;
+    document.getElementById('infoText').textContent       = t.infoText;
+    document.getElementById('labelLocation').textContent  = t.labelLocation;
+    document.getElementById('labelPhone').textContent     = t.labelPhone;
+    document.getElementById('labelEmail').textContent     = t.labelEmail;
+    document.getElementById('labelHours').textContent     = t.labelHours;
+    document.getElementById('hoursValue').textContent     = t.hoursValue;
+    document.getElementById('formTitle').textContent      = t.formTitle;
+    document.getElementById('formSubtitle').textContent   = t.formSubtitle;
+    document.getElementById('labelName').textContent      = t.labelName;
+    document.getElementById('labelEmailField').textContent= t.labelEmailField;
+    document.getElementById('labelPhoneField').textContent= t.labelPhoneField;
+    document.getElementById('labelSubject').textContent   = t.labelSubject;
+    document.getElementById('labelMessage').textContent   = t.labelMessage;
+    document.getElementById('btnText').textContent        = t.btnText;
+    document.getElementById('optOrder').textContent       = t.optOrder;
+    document.getElementById('optQuestion').textContent    = t.optQuestion;
+    document.getElementById('optWholesale').textContent   = t.optWholesale;
+    document.getElementById('optOther').textContent       = t.optOther;
+    document.getElementById('successTitle').textContent   = t.successTitle;
+    document.getElementById('successText').textContent    = t.successText;
+    document.getElementById('navHome').textContent        = t.home;
+    document.getElementById('navProduct').textContent     = t.prod;
+    document.getElementById('navContact').textContent     = t.cont;
+    document.getElementById('navServices').textContent    = t.serv;
+    document.getElementById('navLogin').textContent       = t.login;
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+window.onload = () => {
+    if (localStorage.getItem('dtTheme') === 'light') {
+        document.body.classList.add('light');
+        document.getElementById('themeIcon').className = 'fa-solid fa-moon';
     }
-    window.onload = () => {
-        if(localStorage.getItem("theme") === "dark") document.body.classList.add("dark");
-        const L = localStorage.getItem("language") || "en";
-        document.getElementById("language").value = L;
-        applySettings(L);
-    };
+    const savedLang = localStorage.getItem('dtLang') || 'en';
+    document.getElementById('language').value = savedLang;
+    applyTranslations(savedLang);
+};
 </script>
 </body>
 </html>

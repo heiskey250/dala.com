@@ -4,16 +4,771 @@
     <meta charset="UTF-8">
     <title>Dala Threads | Handcrafted Elegance</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --gold: #c9a84c;
+            --gold-light: #e8c97a;
+            --deep: #0f0820;
+            --surface: #160d2a;
+            --surface2: #1e1235;
+            --rose: #8b2252;
+            --text: #f5ede0;
+            --text-muted: rgba(245,237,224,0.5);
+            --border: rgba(201,168,76,0.15);
+            --transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            --header-h: 72px;
+        }
+
+        /* ── LIGHT THEME ── */
+        body.light {
+            --deep: #f7f1e8;
+            --surface: #ede4d4;
+            --surface2: #e4d8c4;
+            --text: #1a0f2e;
+            --text-muted: rgba(26,15,46,0.5);
+            --border: rgba(139,34,82,0.15);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--deep);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: background 0.4s, color 0.4s;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--deep); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+        /* ── HEADER ── */
+        header {
+            position: fixed; top: 0; width: 100%;
+            height: var(--header-h);
+            z-index: 1000;
+            padding: 0 5%;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(15,8,32,0.75);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        body.light header {
+            background: rgba(247,241,232,0.85);
+        }
+
+        header.scrolled {
+            height: 60px;
+            background: rgba(10,5,20,0.97);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+        }
+
+        body.light header.scrolled {
+            background: rgba(247,241,232,0.98);
+        }
+
+        .logo-container {
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none; color: var(--text);
+        }
+
+        .logo-circle {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--rose));
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem; font-weight: 600; color: #fff;
+            box-shadow: 0 0 18px rgba(201,168,76,0.35);
+            flex-shrink: 0;
+        }
+
+        .logo-container h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.45rem; font-weight: 400;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--gold-light), var(--text));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav { display: flex; gap: 28px; align-items: center; }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none; font-size: 0.78rem;
+            letter-spacing: 1.8px; text-transform: uppercase;
+            font-weight: 500; transition: var(--transition);
+            position: relative;
+        }
+
+        nav a::after {
+            content: ''; position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+
+        nav a:hover { color: var(--gold-light); }
+        nav a:hover::after { width: 100%; }
+
+        .top-icons { display: flex; gap: 10px; align-items: center; }
+
+        .icon-btn {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: rgba(201,168,76,0.08);
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold-light); font-size: 0.85rem;
+            cursor: pointer; transition: var(--transition);
+            outline: none;
+        }
+
+        .icon-btn:hover {
+            background: rgba(201,168,76,0.2);
+            border-color: var(--gold);
+            transform: scale(1.08);
+        }
+
+        .top-icons select {
+            background: rgba(201,168,76,0.08);
+            border: 1px solid var(--border);
+            color: var(--gold-light); padding: 6px 10px;
+            border-radius: 8px; cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.76rem; transition: var(--transition);
+            outline: none;
+        }
+
+        .top-icons select:hover {
+            background: rgba(201,168,76,0.18);
+            border-color: var(--gold);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute; top: -4px; right: -4px;
+            background: var(--rose); color: white;
+            font-size: 9px; font-weight: 700;
+            width: 16px; height: 16px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid var(--deep);
+        }
+
+        /* ── CART DROPDOWN ── */
+        #cart-dropdown {
+            display: none;
+            position: fixed; top: calc(var(--header-h) + 10px); right: 5%;
+            width: 360px;
+            background: linear-gradient(160deg, var(--surface), var(--surface2));
+            border: 1px solid var(--border);
+            border-radius: 18px; padding: 24px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.55);
+            z-index: 999;
+            animation: fadeDown 0.3s ease;
+        }
+
+        #cart-dropdown.active { display: block; }
+
+        @keyframes fadeDown {
+            from { opacity:0; transform: translateY(-8px); }
+            to { opacity:1; transform: translateY(0); }
+        }
+
+        #cart-dropdown h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem; color: var(--gold-light);
+            margin-bottom: 14px; padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: 1px;
+        }
+
+        .cart-item-row {
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 9px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.83rem;
+        }
+
+        .remove-x {
+            color: var(--rose); cursor: pointer;
+            background: none; border: none; font-size: 0.85rem;
+            transition: var(--transition); padding: 2px 5px;
+        }
+
+        .remove-x:hover { transform: scale(1.3); }
+
+        .cart-total {
+            margin-top: 14px; padding-top: 12px;
+            border-top: 1px solid var(--border);
+            font-size: 0.95rem; font-weight: 600;
+            color: var(--gold-light);
+            display: flex; justify-content: space-between;
+        }
+
+        .cart-actions { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+
+        .btn-cart-action {
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; padding: 11px; border-radius: 10px;
+            font-family: 'Jost', sans-serif; font-weight: 600;
+            font-size: 0.82rem; cursor: pointer;
+            text-decoration: none; border: none;
+            transition: var(--transition); letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .btn-cart-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        }
+
+        .btn-wa { background: linear-gradient(135deg, #25D366, #1aad52); color: #fff; }
+        .btn-em { background: linear-gradient(135deg, #EA4335, #c0321f); color: #fff; }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            height: 100vh; min-height: 600px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; text-align: center;
+            padding-top: var(--header-h);
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 40%, rgba(139,34,82,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 60%, rgba(201,168,76,0.12) 0%, transparent 60%),
+                linear-gradient(160deg, #0a0418 0%, #150830 45%, #1a0d35 100%);
+        }
+
+        body.light .hero-bg {
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 40%, rgba(139,34,82,0.1) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 60%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                linear-gradient(160deg, #f0e6d3 0%, #ede4d4 100%);
+        }
+
+        /* animated bead dots */
+        .hero-beads {
+            position: absolute; inset: 0; z-index: 1;
+            overflow: hidden;
+        }
+
+        .bead {
+            position: absolute; border-radius: 50%;
+            animation: floatBead linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatBead {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.3; }
+            100% { opacity: 0; transform: translateY(-120vh) scale(1); }
+        }
+
+        .hero-overlay {
+            position: absolute; inset: 0; z-index: 2;
+            background: linear-gradient(to bottom,
+                rgba(10,4,24,0.05) 0%,
+                transparent 40%,
+                rgba(10,4,24,0.7) 100%);
+        }
+
+        body.light .hero-overlay {
+            background: linear-gradient(to bottom,
+                rgba(247,241,232,0.05) 0%,
+                transparent 40%,
+                rgba(247,241,232,0.6) 100%);
+        }
+
+        .hero-content {
+            position: relative; z-index: 3;
+            max-width: 820px; padding: 0 24px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 0.68rem; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 28px;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        .hero-eyebrow::before, .hero-eyebrow::after {
+            content: ''; width: 28px; height: 1px; background: var(--gold); opacity: 0.5;
+        }
+
+        .hero-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6.5vw, 5.5rem);
+            font-weight: 300; line-height: 1.1;
+            margin-bottom: 22px; letter-spacing: 0px;
+            animation: fadeUp 0.9s ease 0.15s both;
+        }
+
+        .hero-content h2 em {
+            font-style: italic; color: var(--gold-light);
+            display: block;
+        }
+
+        .hero-content p {
+            font-size: 1rem; color: var(--text-muted);
+            max-width: 480px; margin: 0 auto 44px;
+            line-height: 1.85; font-weight: 300;
+            animation: fadeUp 0.9s ease 0.3s both;
+        }
+
+        .hero-ctas {
+            display: flex; gap: 14px;
+            justify-content: center; flex-wrap: wrap;
+            animation: fadeUp 0.9s ease 0.45s both;
+        }
+
+        .btn-primary {
+            padding: 13px 34px; border-radius: 40px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--deep); font-family: 'Jost', sans-serif;
+            font-weight: 700; font-size: 0.78rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            text-decoration: none; border: none; cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 28px rgba(201,168,76,0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(201,168,76,0.5);
+        }
+
+        .btn-ghost {
+            padding: 13px 34px; border-radius: 40px;
+            background: transparent;
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--gold-light); font-family: 'Jost', sans-serif;
+            font-weight: 500; font-size: 0.78rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            text-decoration: none; cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(201,168,76,0.1);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .hero-scroll-hint {
+            position: absolute; bottom: 32px; left: 50%;
+            transform: translateX(-50%); z-index: 3;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            color: rgba(201,168,76,0.45);
+            font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px; height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity:0; transform: translateY(28px); }
+            to { opacity:1; transform: translateY(0); }
+        }
+
+        /* ── STATS ── */
+        .stats {
+            display: grid; grid-template-columns: repeat(4,1fr);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: rgba(201,168,76,0.02);
+        }
+
+        .stat {
+            padding: 40px 20px; text-align: center;
+            border-right: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .stat:last-child { border-right: none; }
+
+        .stat:hover { background: rgba(201,168,76,0.04); }
+
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.6rem; font-weight: 300;
+            color: var(--gold-light); line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.68rem; letter-spacing: 2.5px;
+            text-transform: uppercase; color: var(--text-muted);
+        }
+
+        /* ── FEATURED PRODUCTS ── */
+        .featured {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .featured::before {
+            content: '';
+            position: absolute; top: 0; left: 5%; right: 5%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.3;
+        }
+
+        .section-head {
+            display: flex; align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 56px;
+        }
+
+        .section-head-left {}
+
+        .section-tag {
+            font-size: 0.68rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 10px; display: block;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 300; line-height: 1.2;
+        }
+
+        .section-title em { color: var(--gold-light); font-style: italic; }
+
+        .see-all {
+            font-size: 0.72rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--gold);
+            text-decoration: none; display: flex;
+            align-items: center; gap: 8px;
+            transition: var(--transition);
+            padding-bottom: 4px;
+            border-bottom: 1px solid rgba(201,168,76,0.3);
+        }
+
+        .see-all:hover { gap: 14px; color: var(--gold-light); }
+
+        /* ── PRODUCT GRID ── */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        /* Featured large card — first item */
+        .products-grid .card:first-child {
+            grid-row: span 2;
+        }
+
+        .card {
+            position: relative;
+            border-radius: 16px; overflow: hidden;
+            cursor: pointer;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            text-decoration: none;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(201,168,76,0.4);
+            box-shadow: 0 24px 55px rgba(0,0,0,0.45),
+                        0 0 0 1px rgba(201,168,76,0.12);
+        }
+
+        .card-img {
+            position: relative; overflow: hidden;
+            width: 100%;
+        }
+
+        /* Normal cards */
+        .card:not(:first-child) .card-img {
+            aspect-ratio: 4/3;
+        }
+
+        /* Tall first card */
+        .card:first-child .card-img {
+            height: 100%;
+            min-height: 420px;
+        }
+
+        .card-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+            display: block;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.07);
+        }
+
+        /* Overlay on hover */
+        .card-img::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to top,
+                rgba(10,4,24,0.8) 0%,
+                rgba(10,4,24,0.1) 50%,
+                transparent 100%);
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-img::after { opacity: 0.85; }
+
+        .badge {
+            position: absolute; top: 14px; left: 14px; z-index: 2;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--deep); font-size: 0.62rem;
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        /* Quick add button — appears on hover */
+        .card-quick {
+            position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+            padding: 20px;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-quick {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .card-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem; font-weight: 400;
+            color: #fff; margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-quick {
+            width: 100%; padding: 10px;
+            border-radius: 8px; border: none; cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            background: rgba(201,168,76,0.2);
+            color: var(--gold-light);
+            border: 1px solid rgba(201,168,76,0.4);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .btn-quick:hover {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--deep);
+            border-color: transparent;
+        }
+
+        /* ── NEWSLETTER ── */
+        .newsletter {
+            margin: 0 5% 80px;
+            border-radius: 24px;
+            padding: 70px 60px;
+            background:
+                linear-gradient(135deg, rgba(139,34,82,0.25), rgba(201,168,76,0.1)),
+                var(--surface);
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative; overflow: hidden;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute; top: -60px; right: -60px;
+            width: 220px; height: 220px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(201,168,76,0.12), transparent 70%);
+        }
+
+        .newsletter::after {
+            content: '';
+            position: absolute; bottom: -60px; left: -40px;
+            width: 180px; height: 180px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(139,34,82,0.15), transparent 70%);
+        }
+
+        .newsletter h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem; font-weight: 300;
+            margin-bottom: 12px; position: relative; z-index: 1;
+        }
+
+        .newsletter p {
+            font-size: 0.88rem; color: var(--text-muted);
+            margin-bottom: 34px; line-height: 1.8;
+            position: relative; z-index: 1;
+        }
+
+        .nl-form {
+            display: flex; max-width: 440px; margin: 0 auto;
+            border: 1px solid rgba(201,168,76,0.3);
+            border-radius: 50px; overflow: hidden;
+            background: rgba(255,255,255,0.04);
+            position: relative; z-index: 1;
+        }
+
+        .nl-form input {
+            flex: 1; padding: 13px 22px;
+            background: transparent; border: none; outline: none;
+            color: var(--text); font-family: 'Jost', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .nl-form input::placeholder { color: var(--text-muted); }
+
+        .nl-form button {
+            padding: 13px 26px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border: none; cursor: pointer;
+            color: var(--deep); font-family: 'Jost', sans-serif;
+            font-weight: 700; font-size: 0.75rem;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        .nl-form button:hover { filter: brightness(1.1); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #07030f;
+            border-top: 1px solid rgba(201,168,76,0.1);
+            padding: 64px 5% 28px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 48px; margin-bottom: 48px;
+        }
+
+        .footer-brand h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.7rem; font-weight: 300;
+            color: var(--gold-light); letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .footer-brand p {
+            font-size: 0.83rem; color: var(--text-muted);
+            line-height: 1.85; margin-bottom: 26px;
+        }
+
+        .socials { display: flex; gap: 10px; }
+
+        .socials a {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: rgba(201,168,76,0.08);
+            border: 1px solid rgba(201,168,76,0.18);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold-light); font-size: 0.85rem;
+            text-decoration: none; transition: var(--transition);
+        }
+
+        .socials a:hover {
+            background: var(--gold); color: var(--deep);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(201,168,76,0.3);
+        }
+
+        .footer-col h4 {
+            font-size: 0.65rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-col a, .footer-col p {
+            display: block; color: var(--text-muted);
+            text-decoration: none; font-size: 0.83rem;
+            margin-bottom: 10px; transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        .footer-col a:hover { color: var(--gold-light); padding-left: 4px; }
+
+        .footer-col iframe {
+            margin-top: 10px; border-radius: 10px;
+            border: 1px solid rgba(201,168,76,0.12) !important;
+            filter: brightness(0.65) saturate(0.4);
+        }
+
+        .footer-bottom {
+            padding-top: 22px;
+            border-top: 1px solid rgba(201,168,76,0.08);
+            display: flex; justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem; color: var(--text-muted);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .products-grid .card:first-child { grid-row: span 1; }
+            .card:first-child .card-img { min-height: auto; aspect-ratio: 4/3; height: auto; }
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+            .stats { grid-template-columns: repeat(2,1fr); }
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 12px; height: auto; padding: 14px 5%; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 14px; }
+            #cart-dropdown { width: 90%; right: 5%; left: 5%; top: 160px; }
+            .hero { height: auto; padding: 140px 5% 80px; }
+            .hero-content h2 { font-size: 2.6rem; }
+            .newsletter { padding: 50px 30px; margin: 0 4% 60px; }
+            .section-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+        }
+
+        @media (max-width: 600px) {
+            .products-grid { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .hero-ctas { flex-direction: column; align-items: center; }
+        }
+    </style>
 </head>
 <body>
 
-<header>
-    
+<!-- ── ANIMATED BEADS (generated by JS) ── -->
+<div class="hero-beads" id="heroBeads"></div>
+
+<!-- ── HEADER ── -->
+<header id="mainHeader">
     <a href="index.html" class="logo-container">
         <div class="logo-circle">DT</div>
         <h1>Dala Threads</h1>
@@ -26,186 +781,234 @@
         <a href="login.html" id="navLogin">Sign In</a>
     </nav>
     <div class="top-icons">
-        <div class="cart-icon" onclick="toggleCart()">
+        <div class="cart-icon icon-btn" onclick="toggleCart()">
             <i class="fa-solid fa-cart-shopping"></i>
-            <span class="cart-count">0</span>
-            
+            <span class="cart-count" id="cartCount">0</span>
         </div>
-        <select id="language">
+        <select id="language" onchange="applyTranslations(this.value)">
             <option value="en">EN</option>
             <option value="rw">RW</option>
         </select>
-        <button onclick="toggleTheme()" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+        <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <i class="fa-solid fa-sun" id="themeIcon"></i>
+        </button>
     </div>
 </header>
 
+<!-- ── CART DROPDOWN ── -->
 <div id="cart-dropdown">
-    <h4 style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">Your Cart</h4>
+    <h4><i class="fa-solid fa-bag-shopping" style="margin-right:8px; font-size:0.9rem;"></i>Your Cart</h4>
     <div id="cart-items-list">
-        <p style="font-size:0.8rem; color:#888;">Cart is empty</p>
+        <p style="font-size:0.82rem; color:var(--text-muted); text-align:center; padding:12px 0;">Your cart is empty</p>
     </div>
-    <div class="cart-total">Total: <span id="cart-total-value">0</span> RWF</div>
-    <a href="#" id="whatsapp-order-btn" class="btn-whatsapp-order">Order via WhatsApp</a>
+    <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total-value">0 FRW</span>
+    </div>
+    <div class="cart-actions">
+        <button class="btn-cart-action btn-wa" onclick="orderViaWhatsApp()">
+            <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+        </button>
+        <button class="btn-cart-action btn-em" onclick="orderViaGmail()">
+            <i class="fa-solid fa-envelope"></i> Order via Email
+        </button>
+    </div>
 </div>
 
+<!-- ── HERO ── -->
 <section class="hero">
+    <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <h2 id="heroTitle">Beautiful Handmade Beaded Bag</h2>
-        <p id="heroText">Discover unique, handcrafted beaded bags designed with culture, love, and elegance.</p>
+        <div class="hero-eyebrow" id="heroEyebrow">Handmade in Rwanda</div>
+        <h2 id="heroTitle">
+            Where Tradition Meets
+            <em>Timeless Elegance</em>
+        </h2>
+        <p id="heroText">Each bag is a story — handcrafted with love, culture, and thousands of carefully placed beads.</p>
+        <div class="hero-ctas">
+            <a href="product.html" class="btn-primary" id="heroCta1">Shop the Collection</a>
+            <a href="contact.html" class="btn-ghost" id="heroCta2">Get in Touch</a>
+        </div>
+    </div>
+    <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
     </div>
 </section>
 
-<section class="products">
-    <div class="section-header">
-        <h3 id="collTitle">Our Featured Collection</h3>
-        <p style="font-size: 0.9rem; opacity: 0.7;">Showing 9 exquisite designs</p>
+<!-- ── STATS ── -->
+<div class="stats">
+    <div class="stat">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Bags Crafted</div>
     </div>
-    
-    <div class="grid">
-        <div class="card">
+    <div class="stat">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Years of Craft</div>
+    </div>
+    <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Handmade</div>
+    </div>
+    <div class="stat">
+        <div class="stat-num">🇷🇼</div>
+        <div class="stat-label">Made in Rwanda</div>
+    </div>
+</div>
+
+<!-- ── FEATURED PRODUCTS ── -->
+<section class="featured">
+    <div class="section-head">
+        <div class="section-head-left">
+            <span class="section-tag">Handpicked for you</span>
+            <h2 class="section-title" id="collTitle">Featured <em>Collection</em></h2>
+        </div>
+        <a href="product.html" class="see-all" id="seeAll">
+            View All <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <div class="products-grid">
+
+        <a href="product.html" class="card">
             <div class="badge">New Arrival</div>
-            <div class="img-container"><img src="bag1.jpg" alt="Classic Beaded Bag"></div>
-            <div class="card-content">
-                <h4>Classic Beaded Bag</h4>
-                <div class="button-group">
-                    <button onclick="addToCart('Classic Beaded Bag', 25000)" class="btn-buy">
-                        <i class="fa-brands fa-whatsapp"></i> Buy
-                    </button>
-                    
-                </div>
+            <div class="card-img">
+                <img src="bag1.jpg" alt="Classic Beaded Bag">
             </div>
-        </div>zz
-        
-        <div class="card">
+            <div class="card-quick">
+                <div class="card-name">Classic Beaded Bag</div>
+                <button class="btn-quick" onclick="event.preventDefault(); addToCart('Classic Beaded Bag', 25000)">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </a>
+
+        <a href="product.html" class="card">
             <div class="badge">Popular</div>
-            <div class="img-container"><img src="bag2.jpg" alt="Elegant Bead Purse"></div>
-            <div class="card-content">
-                <h4>Elegant Bead Purse</h4>
-                <div class="button-group">
-                    <button onclick="addToCart('Elegant Bead Purse', 30000)" class="btn-buy">
-                        <i class="fa-brands fa-whatsapp"></i> Buy
-                    </button>
-                    
-                </div>
+            <div class="card-img">
+                <img src="bag2.jpg" alt="Elegant Bead Purse">
             </div>
-        </div>
+            <div class="card-quick">
+                <div class="card-name">Elegant Bead Purse</div>
+                <button class="btn-quick" onclick="event.preventDefault(); addToCart('Elegant Bead Purse', 30000)">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </a>
 
-        <div class="card">
-            <div class="img-container"><img src="bag3.jpg" alt="Luxury Handbag"></div>
-            <div class="card-content">
-                <h4>Luxury Handbag</h4>
-                <div class="button-group">
-                    <button onclick="addToCart('Luxury Handbag', 45000)" class="btn-buy">
-                        <i class="fa-brands fa-whatsapp"></i> Buy
-                    </button>
-                    
-                </div>
+        <a href="product.html" class="card">
+            <div class="card-img">
+                <img src="bag3.jpg" alt="Luxury Handbag">
             </div>
-        </div>
+            <div class="card-quick">
+                <div class="card-name">Luxury Handbag</div>
+                <button class="btn-quick" onclick="event.preventDefault(); addToCart('Luxury Handbag', 45000)">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </a>
 
-        <div class="card">
-            <div class="img-container"><img src="bag4.jpg" alt="Small Purse"></div>
-            <div class="card-content">
-                <h4>Small Elegant Purse</h4>
-                <div class="button-group">
-                    <button onclick="addToCart('Small Elegant Purse', 20000)" class="btn-buy">
-                        <i class="fa-brands fa-whatsapp"></i> Buy
-                    </button>
-                 
-                </div>
+        <a href="product.html" class="card">
+            <div class="card-img">
+                <img src="bag4.jpg" alt="Small Elegant Purse">
             </div>
-        </div>
+            <div class="card-quick">
+                <div class="card-name">Small Elegant Purse</div>
+                <button class="btn-quick" onclick="event.preventDefault(); addToCart('Small Elegant Purse', 20000)">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </a>
 
-        <div class="card">
-            <div class="img-container"><img src="bag5.jpg" alt="Bead Purse"></div>
-            <div class="card-content">
-                <h4>Evening Bead Purse</h4>
-                <div class="button-group">
-                    <button onclick="addToCart('Evening Bead Purse', 35000)" class="btn-buy">
-                        <i class="fa-brands fa-whatsapp"></i> Buy
-                    </button>
-                    
-                </div>
+        <a href="product.html" class="card">
+            <div class="card-img">
+                <img src="bag5.jpg" alt="Evening Bead Purse">
             </div>
-        </div>
+            <div class="card-quick">
+                <div class="card-name">Evening Bead Purse</div>
+                <button class="btn-quick" onclick="event.preventDefault(); addToCart('Evening Bead Purse', 35000)">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </a>
 
-        <div class="card">
-            <div class="img-container"><img src="bag6.jpg" alt="Bead Purse"></div>
-            <div class="card-content">
-                <h4>Signature Collection</h4>
-                <div class="button-group">
-                    <button onclick="addToCart('Signature Collection', 50000)" class="btn-buy">
-                        <i class="fa-brands fa-whatsapp"></i> Buy
-                    </button>
-                    
-                </div>
+        <a href="product.html" class="card">
+            <div class="card-img">
+                <img src="bag6.jpg" alt="Signature Collection">
             </div>
-        </div>
+            <div class="card-quick">
+                <div class="card-name">Signature Collection</div>
+                <button class="btn-quick" onclick="event.preventDefault(); addToCart('Signature Collection', 50000)">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </a>
 
-        <div class="card">
-            <div class="img-container"><img src="bagss.jpg" alt="Bead Purse"></div>
-            <div class="card-content">
-                <h4>Fashion Pearl backpack</h4>
-                <div class="button-group">
-                    <button onclick="addToCart('Fashion Pearl backpack', 55000)" class="btn-buy">
-                        <i class="fa-brands fa-whatsapp"></i> Buy
-                    </button>
-                    
-                </div>
+        <a href="product.html" class="card">
+            <div class="card-img">
+                <img src="bagss.jpg" alt="Fashion Pearl Backpack">
             </div>
-        </div>
+            <div class="card-quick">
+                <div class="card-name">Fashion Pearl Backpack</div>
+                <button class="btn-quick" onclick="event.preventDefault(); addToCart('Fashion Pearl Backpack', 55000)">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </a>
 
-        <div class="card">
-            <div class="img-container"><img src="bag19.jpg" alt="Bead Purse"></div>
-            <div class="card-content">
-                <h4>Royal Beaded Clutch</h4>
-                <div class="button-group">
-                    <button onclick="addToCart('Royal Beaded Clutch', 40000)" class="btn-buy">
-                        <i class="fa-brands fa-whatsapp"></i> Buy
-                    </button>
-                    
-                </div>
+        <a href="product.html" class="card">
+            <div class="card-img">
+                <img src="bag19.jpg" alt="Royal Beaded Clutch">
             </div>
-        </div>
+            <div class="card-quick">
+                <div class="card-name">Royal Beaded Clutch</div>
+                <button class="btn-quick" onclick="event.preventDefault(); addToCart('Royal Beaded Clutch', 40000)">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </a>
 
-        <div class="card">
-            <div class="img-container"><img src="bag17.jpg" alt="Bead Purse"></div>
-            <div class="card-content">
-                <h4>Summer Glow Bag</h4>
-                <div class="button-group">
-                    <button onclick="addToCart('Summer Glow Bag', 22000)" class="btn-buy">
-                        <i class="fa-brands fa-whatsapp"></i> Buy
-                    </button>
-                    
-                </div>
+        <a href="product.html" class="card">
+            <div class="card-img">
+                <img src="bag17.jpg" alt="Summer Glow Bag">
             </div>
-        </div>
+            <div class="card-quick">
+                <div class="card-name">Summer Glow Bag</div>
+                <button class="btn-quick" onclick="event.preventDefault(); addToCart('Summer Glow Bag', 22000)">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </a>
+
     </div>
 </section>
 
+<!-- ── NEWSLETTER ── -->
 <section class="newsletter">
-    <h3>Join the Dala Club</h3>
-    <p>Subscribe to receive updates on new collections and exclusive offers.</p>
-    <form onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
-        <input type="email" placeholder="Enter your email address" required>
+    <span class="section-tag">Stay connected</span>
+    <h3>Join the <em style="font-family:'Cormorant Garamond',serif; color:var(--gold-light); font-style:italic;">Dala Club</em></h3>
+    <p>New collections, behind-the-scenes stories, and exclusive member offers — direct to your inbox.</p>
+    <form class="nl-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; alert('Welcome to the Dala Club! ✨');">
+        <input type="email" placeholder="Your email address" required>
         <button type="submit">Subscribe</button>
     </form>
 </section>
 
+<!-- ── FOOTER ── -->
 <footer>
     <div class="footer-grid">
-        <div class="footer-logo">
+        <div class="footer-brand">
             <h2>Dala Threads</h2>
-            <p>© 2026 Handmade in Rwanda with love. We bring elegance to your wardrobe through traditional beadwork.</p>
-            <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://wa.me/250795013119"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <p>Handmade in Rwanda with love. We bring elegance to your wardrobe through traditional beadwork passed down through generations.</p>
+            <div class="socials">
+                <a href="https://www.instagram.com/dala_threads" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/250795013119" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/search/top?q=buhendwa%20daniella" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/@dala_threads" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
-        <div class="footer-links">
+        <div class="footer-col">
             <h4>Quick Links</h4>
             <a href="index.html">Home</a>
             <a href="product.html">Our Products</a>
@@ -213,31 +1016,207 @@
             <a href="ourservices.html">Services</a>
             <a href="login.html">Sign In</a>
         </div>
-        <div class="footer-links">
+        <div class="footer-col">
             <h4>Support</h4>
             <a href="#">Shipping Policy</a>
             <a href="#">Return Policy</a>
             <a href="#">FAQs</a>
             <a href="#">Size Guide</a>
         </div>
-        <div class="footer-links">
+        <div class="footer-col">
             <h4>Our Location</h4>
-            <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px;">
-                <i class="fa-solid fa-location-dot"></i> Ruyenzi, Kamonyi, Rwanda
-            </p>
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15949.613386348604!2d29.938885699999997!3d-1.9936856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca4377b5a1b31%3A0x8979857321590483!2sRuyenzi!5e0!3m2!1sen!2srw!4v1700000000000!5m2!1sen!2srw" 
-                width="100%" 
-                height="150" 
-                style="border:0; border-radius: 8px;" 
-                allowfullscreen="" 
-                loading="lazy" 
+            <p><i class="fa-solid fa-location-dot" style="color:var(--gold); margin-right:6px;"></i> Ruyenzi, Kamonyi, Rwanda</p>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15949.613386348604!2d29.938885699999997!3d-1.9936856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca4377b5a1b31%3A0x8979857321590483!2sRuyenzi!5e0!3m2!1sen!2srw!4v1700000000000!5m2!1sen!2srw"
+                width="100%" height="140"
+                style="border:0; border-radius:10px;"
+                allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </div>
     </div>
+    <div class="footer-bottom">
+        <span>© 2026 Dala Threads. All rights reserved.</span>
+        <span>Handmade with ♥ in Rwanda</span>
+    </div>
 </footer>
 
-<script src="script.js"></script>
+<script>
+// ── FLOATING BEAD ANIMATION ─────────────────────────────────
+(function spawnBeads() {
+    const container = document.getElementById('heroBeads');
+    const colors = ['#c9a84c','#e8c97a','#8b2252','#d4a0b5','#f0d080'];
+    for (let i = 0; i < 28; i++) {
+        const b = document.createElement('div');
+        b.className = 'bead';
+        const size = Math.random() * 8 + 4;
+        b.style.cssText = `
+            width:${size}px; height:${size}px;
+            left:${Math.random()*100}%;
+            bottom:${Math.random()*20 - 10}%;
+            background:${colors[Math.floor(Math.random()*colors.length)]};
+            animation-duration:${Math.random()*12 + 8}s;
+            animation-delay:${Math.random()*10}s;
+            opacity:0;
+        `;
+        container.appendChild(b);
+    }
+})();
+
+// ── CART ────────────────────────────────────────────────────
+let cart = JSON.parse(localStorage.getItem("dtCart")) || [];
+
+function toggleCart() {
+    document.getElementById("cart-dropdown").classList.toggle("active");
+}
+
+// Close cart when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('cart-dropdown');
+    const cartBtn = document.querySelector('.cart-icon');
+    if (dropdown.classList.contains('active') &&
+        !dropdown.contains(e.target) &&
+        !cartBtn.contains(e.target)) {
+        dropdown.classList.remove('active');
+    }
+});
+
+function addToCart(name, price) {
+    cart.push({ id: Date.now(), name, price });
+    saveCart();
+    renderCart();
+    document.getElementById("cart-dropdown").classList.add("active");
+
+    // Animate badge
+    const badge = document.getElementById('cartCount');
+    badge.style.transform = 'scale(1.5)';
+    setTimeout(() => badge.style.transform = '', 300);
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(i => i.id !== id);
+    saveCart(); renderCart();
+}
+
+function saveCart() { localStorage.setItem("dtCart", JSON.stringify(cart)); }
+
+function renderCart() {
+    const list = document.getElementById("cart-items-list");
+    const totalEl = document.getElementById("cart-total-value");
+    const badge = document.getElementById("cartCount");
+    let total = 0;
+
+    if (cart.length === 0) {
+        list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-muted);text-align:center;padding:12px 0;">Your cart is empty</p>';
+    } else {
+        list.innerHTML = cart.map(item => `
+            <div class="cart-item-row">
+                <span style="flex:1;">${item.name}</span>
+                <span style="color:var(--gold-light);font-size:0.8rem;margin-right:10px;">${item.price.toLocaleString()} FRW</span>
+                <button class="remove-x" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        `).join('');
+    }
+
+    cart.forEach(i => total += i.price);
+    totalEl.innerText = total.toLocaleString() + ' FRW';
+    badge.innerText = cart.length;
+    badge.style.display = cart.length === 0 ? 'none' : 'flex';
+}
+
+// ── ORDER VIA WHATSAPP ───────────────────────────────────────
+function orderViaWhatsApp() {
+    if (cart.length === 0) { alert("Your cart is empty!"); return; }
+    let msg = "*DALA THREADS — NEW ORDER*%0A%0A*Items:*%0A";
+    cart.forEach(item => { msg += `- ${item.name} (${item.price.toLocaleString()} FRW)%0A`; });
+    const total = cart.reduce((s,i) => s+i.price, 0);
+    msg += `%0A*Total: ${total.toLocaleString()} FRW*%0A%0APlease confirm availability. Thank you! 🙏`;
+    window.open(`https://wa.me/250795013119?text=${msg}`, "_blank");
+}
+
+// ── ORDER VIA GMAIL ──────────────────────────────────────────
+function orderViaGmail() {
+    if (cart.length === 0) { alert("Your cart is empty!"); return; }
+    const now = new Date().toLocaleString("en-RW", { dateStyle: "medium", timeStyle: "short" });
+    const subject = "New Order — Dala Threads — " + now;
+    let body = "DALA THREADS — NEW ORDER\n========================\n\n";
+    body += "Order Time: " + now + "\n\nORDER ITEMS:\n";
+    cart.forEach((item, i) => { body += `${i+1}. ${item.name} — ${item.price.toLocaleString()} FRW\n`; });
+    const total = cart.reduce((s,i) => s+i.price, 0);
+    body += `\nTOTAL: ${total.toLocaleString()} FRW\n\nPlease confirm and provide payment instructions.\n\nThank you!`;
+    window.open(`https://mail.google.com/mail/?view=cm&to=keybuhendwa0@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_blank");
+}
+
+// ── HEADER SCROLL ────────────────────────────────────────────
+window.addEventListener("scroll", () => {
+    document.getElementById("mainHeader").classList.toggle("scrolled", window.scrollY > 60);
+});
+
+// ── THEME ────────────────────────────────────────────────────
+function toggleTheme() {
+    document.body.classList.toggle("light");
+    const isLight = document.body.classList.contains("light");
+    localStorage.setItem("dtTheme", isLight ? "light" : "dark");
+    document.getElementById("themeIcon").className = isLight ? "fa-solid fa-moon" : "fa-solid fa-sun";
+}
+
+// ── TRANSLATIONS ─────────────────────────────────────────────
+const T = {
+    en: {
+        eyebrow: "Handmade in Rwanda",
+        hero: "Where Tradition Meets",
+        heroEm: "Timeless Elegance",
+        heroSub: "Each bag is a story — handcrafted with love, culture, and thousands of carefully placed beads.",
+        cta1: "Shop the Collection", cta2: "Get in Touch",
+        coll: "Featured <em>Collection</em>",
+        seeAll: "View All",
+        home: "Home", prod: "Our Products",
+        cont: "Contact Us", serv: "Services", login: "Sign In"
+    },
+    rw: {
+        eyebrow: "Ikorwa mu Rwanda",
+        hero: "Aho Amateka Ahura Mu",
+        heroEm: "Bwiza Buhoraho",
+        heroSub: "Buri saho ni inkuru — ikorwa n'urukundo, umuco, n'imisanga ibihumbi.",
+        cta1: "Reba Ibicuruzwa", cta2: "Twandikire",
+        coll: "Ibikorwa <em>Bihebujwe</em>",
+        seeAll: "Reba Byose",
+        home: "Ahabanza", prod: "Ibicuruzwa",
+        cont: "Twandikire", serv: "Serivisi", login: "Injira"
+    }
+};
+
+function applyTranslations(l) {
+    const t = T[l] || T.en;
+    localStorage.setItem("dtLang", l);
+    document.getElementById("heroEyebrow").textContent = t.eyebrow;
+    document.getElementById("heroTitle").innerHTML = `${t.hero}<em>${t.heroEm}</em>`;
+    document.getElementById("heroText").textContent = t.heroSub;
+    document.getElementById("heroCta1").textContent = t.cta1;
+    document.getElementById("heroCta2").textContent = t.cta2;
+    document.getElementById("collTitle").innerHTML = t.coll;
+    document.getElementById("seeAll").innerHTML = `${t.seeAll} <i class="fa-solid fa-arrow-right"></i>`;
+    document.getElementById("navHome").textContent = t.home;
+    document.getElementById("navOurProducts").textContent = t.prod;
+    document.getElementById("navContact").textContent = t.cont;
+    document.getElementById("navServices").textContent = t.serv;
+    document.getElementById("navLogin").textContent = t.login;
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+window.onload = () => {
+    renderCart();
+
+    const savedTheme = localStorage.getItem("dtTheme");
+    if (savedTheme === "light") {
+        document.body.classList.add("light");
+        document.getElementById("themeIcon").className = "fa-solid fa-moon";
+    }
+
+    const savedLang = localStorage.getItem("dtLang") || "en";
+    document.getElementById("language").value = savedLang;
+    applyTranslations(savedLang);
+};
+</script>
 </body>
 </html>

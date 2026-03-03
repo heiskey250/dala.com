@@ -2,399 +2,1180 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dala Threads | Gallery & Shop</title>
+    <title>Dala Threads | Our Collection</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <style>
         :root {
-            --header-gradient: linear-gradient(to right, #e0389aff, #4a773c); 
-            --primary: #702046;
-            --secondary: #4a773c;
-            --bg: #fdfaff;
-            --card: #ffffff;
-            --text: #2d1f3d;
-            --accent: #ffd700;
-            --instagram: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            --gold: #c9a84c;
+            --gold-light: #e8c97a;
+            --deep: #0f0820;
+            --surface: #160d2a;
+            --surface2: #1e1235;
+            --rose: #8b2252;
+            --text: #f5ede0;
+            --text-muted: rgba(245,237,224,0.5);
+            --border: rgba(201,168,76,0.15);
             --whatsapp: #25D366;
-            --facebook: #1877F2;
-            --tiktok:#310831;
             --email: #EA4335;
             --ussd: #9b59b6;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            --header-h: 72px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            font-family: 'DM Sans', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            transition: var(--transition); 
-            line-height: 1.6;
-            overflow-x: hidden;
+        body.light {
+            --deep: #f7f1e8;
+            --surface: #ede4d4;
+            --surface2: #e4d8c4;
+            --text: #1a0f2e;
+            --text-muted: rgba(26,15,46,0.5);
+            --border: rgba(139,34,82,0.15);
         }
 
-        body.dark { --bg: #130f1a; --text: #f5f5f5; --card: #1f1a29; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
 
+        body {
+            font-family:'Jost',sans-serif;
+            background:var(--deep);
+            color:var(--text);
+            overflow-x:hidden;
+            transition:background 0.4s,color 0.4s;
+        }
+
+        ::-webkit-scrollbar { width:5px; }
+        ::-webkit-scrollbar-track { background:var(--deep); }
+        ::-webkit-scrollbar-thumb { background:var(--gold); border-radius:3px; }
+
+        /* ── HEADER ── */
         header {
-            background: var(--header-gradient);
-            backdrop-filter: blur(15px);
-            color: #fff; padding: 15px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+            position:fixed; top:0; width:100%; height:var(--header-h);
+            z-index:1000; padding:0 5%;
+            display:flex; align-items:center; justify-content:space-between;
+            background:rgba(15,8,32,0.8);
+            backdrop-filter:blur(24px);
+            border-bottom:1px solid var(--border);
+            transition:var(--transition);
         }
+
+        body.light header { background:rgba(247,241,232,0.9); }
+
+        header.scrolled {
+            height:60px;
+            background:rgba(8,3,20,0.97);
+            box-shadow:0 4px 30px rgba(0,0,0,0.4);
+        }
+
+        body.light header.scrolled { background:rgba(247,241,232,0.98); }
 
         .logo-container {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            gap: 12px;
-            color: #fff;
+            display:flex; align-items:center; gap:12px;
+            text-decoration:none; color:var(--text);
         }
 
         .logo-circle {
-            background: #fff;
-            color: var(--primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
+            width:40px; height:40px; border-radius:50%;
+            background:linear-gradient(135deg,var(--gold),var(--rose));
+            display:flex; align-items:center; justify-content:center;
+            font-family:'Cormorant Garamond',serif;
+            font-size:0.95rem; font-weight:600; color:#fff;
+            box-shadow:0 0 18px rgba(201,168,76,0.35);
+            flex-shrink:0;
         }
 
-        header h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 1.6rem; 
-            letter-spacing: 1px; 
-            margin: 0;
+        .logo-container h1 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.45rem; font-weight:400; letter-spacing:2px;
+            background:linear-gradient(90deg,var(--gold-light),var(--text));
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+            background-clip:text;
         }
 
-        nav { display: flex; align-items: center; }
-        nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
-        nav a:hover { color: var(--accent); transform: translateY(-2px); }
+        nav { display:flex; gap:26px; align-items:center; }
 
-        .top-icons { display: flex; gap: 15px; align-items: center; }
+        nav a {
+            color:var(--text-muted); text-decoration:none;
+            font-size:0.78rem; letter-spacing:1.8px;
+            text-transform:uppercase; font-weight:500;
+            transition:var(--transition); position:relative;
+        }
 
-        .search-container {
-            position: relative;
-            display: flex;
-            align-items: center;
+        nav a::after {
+            content:''; position:absolute; bottom:-3px; left:0;
+            width:0; height:1px; background:var(--gold); transition:var(--transition);
+        }
+
+        nav a:hover { color:var(--gold-light); }
+        nav a:hover::after { width:100%; }
+        nav a.active { color:var(--gold-light); }
+        nav a.active::after { width:100%; }
+
+        .top-icons { display:flex; gap:10px; align-items:center; }
+
+        .icon-btn {
+            width:36px; height:36px; border-radius:50%;
+            background:rgba(201,168,76,0.08);
+            border:1px solid var(--border);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--gold-light); font-size:0.85rem;
+            cursor:pointer; transition:var(--transition); outline:none;
+        }
+
+        .icon-btn:hover {
+            background:rgba(201,168,76,0.2);
+            border-color:var(--gold); transform:scale(1.08);
+        }
+
+        .search-wrap {
+            position:relative; display:flex; align-items:center;
+        }
+
+        .search-wrap i {
+            position:absolute; left:12px;
+            font-size:0.78rem; color:var(--gold-light); pointer-events:none;
         }
 
         #productSearch {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 8px 15px 8px 35px;
-            color: white;
-            font-family: 'DM Sans', sans-serif;
-            outline: none;
-            width: 140px;
-            transition: var(--transition);
+            background:rgba(201,168,76,0.08);
+            border:1px solid var(--border);
+            border-radius:20px;
+            padding:8px 14px 8px 32px;
+            color:var(--text);
+            font-family:'Jost',sans-serif;
+            font-size:0.78rem; outline:none;
+            width:140px; transition:var(--transition);
         }
 
-        #productSearch::placeholder { color: rgba(255, 255, 255, 0.7); font-size: 0.8rem; }
+        #productSearch::placeholder { color:var(--text-muted); }
 
         #productSearch:focus {
-            width: 200px;
-            background: rgba(255, 255, 255, 0.25);
-            border-color: var(--accent);
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            width:190px;
+            background:rgba(201,168,76,0.14);
+            border-color:var(--gold);
+            box-shadow:0 0 12px rgba(201,168,76,0.15);
         }
 
-        .search-icon-inside {
-            position: absolute;
-            left: 12px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.7);
+        .top-icons select {
+            background:rgba(201,168,76,0.08);
+            border:1px solid var(--border);
+            color:var(--gold-light); padding:6px 10px;
+            border-radius:8px; cursor:pointer;
+            font-family:'Jost',sans-serif;
+            font-size:0.76rem; transition:var(--transition); outline:none;
         }
 
-        .top-icons select, .top-icons button { 
-            padding: 8px 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; cursor: pointer; 
-            background: rgba(255,255,255,0.1); color: white; transition: var(--transition);
-            font-weight: bold; outline: none;
+        .top-icons select:hover {
+            background:rgba(201,168,76,0.18); border-color:var(--gold);
         }
 
-        .cart-trigger {
-            position: relative;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: white;
-            transition: var(--transition);
-        }
-        .cart-trigger:hover { transform: scale(1.1); color: var(--accent); }
+        .cart-wrap { position:relative; }
 
         .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -8px;
-            background: var(--accent);
-            color: #000;
-            font-size: 11px;
-            padding: 2px 5px;
-            border-radius: 50%;
-            font-weight: 800;
-            min-width: 18px;
-            text-align: center;
-            border: 2px solid var(--primary);
+            position:absolute; top:-4px; right:-4px;
+            background:var(--rose); color:#fff;
+            font-size:9px; font-weight:700;
+            width:16px; height:16px; border-radius:50%;
+            display:none; align-items:center; justify-content:center;
+            border:2px solid var(--deep);
+            transition:transform 0.2s;
         }
 
+        /* ── CART DROPDOWN ── */
         #cart-dropdown {
-            display: none;
-            position: fixed;
-            top: 80px;
-            right: 5%;
-            width: 380px;
-            background: var(--card);
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            z-index: 2000;
-            border: 1px solid rgba(0,0,0,0.05);
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: fadeIn 0.3s ease;
+            display:none; position:fixed;
+            top:calc(var(--header-h) + 10px); right:5%;
+            width:370px;
+            background:linear-gradient(160deg,var(--surface),var(--surface2));
+            border:1px solid var(--border);
+            border-radius:18px; padding:24px;
+            box-shadow:0 30px 70px rgba(0,0,0,0.55);
+            z-index:2000; animation:fadeDown 0.3s ease;
+            max-height:80vh; overflow-y:auto;
         }
 
-        #cart-dropdown.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #cart-dropdown.active { display:block; }
 
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(128,128,128,0.1); }
-        .remove-btn { background: none; color: #ff4757; border: none; cursor: pointer; font-size: 1rem; transition: 0.2s; }
-        .remove-btn:hover { transform: scale(1.2); }
-
-        /* Email info box as a clickable red button */
-        .email-info-box {
-            margin-top: 15px;
+        @keyframes fadeDown {
+            from { opacity:0; transform:translateY(-8px); }
+            to   { opacity:1; transform:translateY(0); }
         }
 
-        .email-btn-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: var(--email);
-            color: white !important;
-            text-decoration: none;
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            width: 100%;
+        #cart-dropdown h3 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.15rem; color:var(--gold-light);
+            margin-bottom:14px; padding-bottom:10px;
+            border-bottom:1px solid var(--border); letter-spacing:1px;
         }
-        .email-btn-link:hover { filter: brightness(1.1); transform: translateY(-2px); }
 
-        .checkout-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 10px;
+        .cart-item {
+            display:flex; justify-content:space-between;
+            align-items:center; padding:10px 0;
+            border-bottom:1px solid rgba(255,255,255,0.04);
         }
+
+        .cart-item span { font-size:0.83rem; }
+
+        .remove-btn {
+            background:none; color:var(--rose);
+            border:none; cursor:pointer; font-size:0.85rem;
+            transition:var(--transition); padding:3px 6px;
+        }
+
+        .remove-btn:hover { transform:scale(1.3); }
+
+        .cart-total-row {
+            display:flex; justify-content:space-between;
+            margin-top:14px; padding-top:12px;
+            border-top:1px solid var(--border);
+            font-size:1rem; font-weight:600; color:var(--gold-light);
+        }
+
+        .cart-actions { display:flex; flex-direction:column; gap:9px; margin-top:14px; }
 
         .checkout-btn {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            color: white; text-decoration: none; 
-            padding: 12px; border-radius: 10px; font-weight: bold; transition: var(--transition);
-            border: none; cursor: pointer; width: 100%;
-            font-size: 0.95rem;
-        }
-        .checkout-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
-        .checkout-btn.whatsapp { background: var(--whatsapp); }
-        .checkout-btn.ussd { background: var(--ussd); }
-
-        .gallery-section { padding: 60px 5%; max-width: 1400px; margin: auto; }
-        .gallery-section h2 { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 50px; color: var(--primary); }
-        
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 30px; 
+            display:flex; align-items:center; justify-content:center;
+            gap:8px; padding:11px; border-radius:10px;
+            font-family:'Jost',sans-serif; font-weight:600;
+            font-size:0.78rem; cursor:pointer; border:none;
+            transition:var(--transition); letter-spacing:1px;
+            text-transform:uppercase; color:#fff; text-decoration:none;
+            width:100%;
         }
 
-        .card { 
-            background: var(--card); border-radius: 20px; overflow: hidden; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: var(--transition);
-            border: 1px solid rgba(128,128,128,0.05);
-        }
-        .card.hidden { display: none; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 320px; object-fit: cover; }
-        
-        .card-content { padding: 25px; text-align: center; }
-        .card-content h4 { font-family: 'Playfair Display', serif; margin-bottom: 10px; font-size: 1.2rem; }
-        .price { font-weight: 700; color: var(--primary); margin-bottom: 15px; font-size: 1.1rem; }
-        
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        /* Only the Add button — Buy button removed */
-        .btn-add {
-            padding: 12px 20px; border-radius: 50px; cursor: pointer;
-            width: 100%; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;
-            transition: var(--transition); border: none;
-            background: var(--primary); color: white; 
-        }
-        .btn-add:hover { background: var(--secondary); }
+        .checkout-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.3); }
+        .checkout-btn.email-btn  { background:linear-gradient(135deg,#EA4335,#c0321f); }
+        .checkout-btn.wa-btn     { background:linear-gradient(135deg,#25D366,#1aad52); }
+        .checkout-btn.ussd-btn   { background:linear-gradient(135deg,#9b59b6,#7d3c98); }
 
-        footer { background: #130f1a; color: #fff; text-align: center; padding: 60px 5%; margin-top: 80px; }
-        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
-        .social-icon { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 1.2rem; transition: var(--transition); }
-        .social-icon:hover { transform: translateY(-5px); }
-        .social-icon.instagram { background: var(--instagram); }
-        .social-icon.whatsapp { background: var(--whatsapp); }
-        .social-icon.facebook { background: var(--facebook); }
-        .social-icon.tiktok { background: var(--tiktok); }
-
-        @media screen and (max-width: 992px) {
-            header { padding: 15px 3%; }
-            nav a { font-size: 0.85rem; margin: 0 8px; }
-            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        /* ── PAGE HERO STRIP ── */
+        .page-hero {
+            padding-top:var(--header-h);
+            padding-bottom:0;
+            background:
+                radial-gradient(ellipse 70% 50% at 10% 50%, rgba(139,34,82,0.2) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 90% 50%, rgba(201,168,76,0.1) 0%, transparent 60%),
+                linear-gradient(160deg,#08031a 0%,#140830 60%,#0f0820 100%);
+            position:relative; overflow:hidden;
         }
 
-        @media screen and (max-width: 768px) {
-            header { flex-direction: column; gap: 15px; }
-            nav { justify-content: center; flex-wrap: wrap; }
-            #cart-dropdown { width: 90%; right: 5%; left: 5%; }
-            .search-container { width: 100%; justify-content: center; }
-            #productSearch { width: 80%; }
+        body.light .page-hero {
+            background:
+                radial-gradient(ellipse 70% 50% at 10% 50%, rgba(139,34,82,0.08) 0%, transparent 60%),
+                linear-gradient(160deg,#f0e6d3 0%,#ede4d4 100%);
         }
 
-        @media screen and (max-width: 480px) {
-            .grid { grid-template-columns: 1fr; }
-            .logo-container h1 { font-size: 1.3rem; }
-            .card img { height: 280px; }
+        .page-hero-inner {
+            max-width:1400px; margin:0 auto;
+            padding:60px 5% 50px;
+            display:flex; align-items:center;
+            justify-content:space-between; gap:30px;
+            flex-wrap:wrap;
+        }
+
+        .page-hero-left {}
+
+        .page-eyebrow {
+            display:inline-flex; align-items:center; gap:10px;
+            font-size:0.66rem; letter-spacing:4px; text-transform:uppercase;
+            color:var(--gold); margin-bottom:14px;
+            animation:fadeUp 0.8s ease both;
+        }
+
+        .page-eyebrow::before,.page-eyebrow::after {
+            content:''; width:22px; height:1px; background:var(--gold); opacity:0.5;
+        }
+
+        .page-hero h2 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:clamp(2.2rem,4vw,3.5rem);
+            font-weight:300; line-height:1.15;
+            animation:fadeUp 0.8s ease 0.1s both;
+        }
+
+        .page-hero h2 em { font-style:italic; color:var(--gold-light); }
+
+        .page-hero p {
+            font-size:0.92rem; color:var(--text-muted);
+            margin-top:12px; line-height:1.8; max-width:440px;
+            animation:fadeUp 0.8s ease 0.2s both;
+        }
+
+        /* Filter & sort bar */
+        .filter-bar {
+            display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+            animation:fadeUp 0.8s ease 0.3s both;
+        }
+
+        .filter-pill {
+            padding:8px 18px; border-radius:30px;
+            font-family:'Jost',sans-serif;
+            font-size:0.72rem; font-weight:500;
+            letter-spacing:1px; text-transform:uppercase;
+            cursor:pointer; border:1px solid var(--border);
+            background:rgba(201,168,76,0.06);
+            color:var(--text-muted);
+            transition:var(--transition);
+        }
+
+        .filter-pill:hover,.filter-pill.active {
+            background:rgba(201,168,76,0.15);
+            border-color:var(--gold);
+            color:var(--gold-light);
+        }
+
+        .filter-pill.active {
+            background:linear-gradient(135deg,rgba(201,168,76,0.25),rgba(201,168,76,0.1));
+        }
+
+        .hero-divider {
+            height:1px; width:100%;
+            background:linear-gradient(90deg,transparent,var(--gold),transparent);
+            opacity:0.25; margin-top:0;
+        }
+
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(22px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        /* ── COLLECTION GRID ── */
+        .collection {
+            max-width:1400px; margin:0 auto;
+            padding:56px 5% 80px;
+        }
+
+        .collection-meta {
+            display:flex; align-items:center;
+            justify-content:space-between;
+            margin-bottom:36px;
+        }
+
+        .collection-count {
+            font-size:0.72rem; letter-spacing:2px;
+            text-transform:uppercase; color:var(--text-muted);
+        }
+
+        .collection-count span { color:var(--gold-light); font-weight:600; }
+
+        .sort-select {
+            background:rgba(201,168,76,0.08);
+            border:1px solid var(--border);
+            color:var(--text-muted); padding:7px 14px;
+            border-radius:8px; cursor:pointer;
+            font-family:'Jost',sans-serif;
+            font-size:0.74rem; outline:none; transition:var(--transition);
+        }
+
+        .sort-select:hover { border-color:var(--gold); color:var(--gold-light); }
+
+        .grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+            gap:24px;
+        }
+
+        /* ── PRODUCT CARD ── */
+        .card {
+            background:var(--surface);
+            border:1px solid var(--border);
+            border-radius:16px; overflow:hidden;
+            transition:var(--transition);
+            position:relative;
+        }
+
+        .card.hidden { display:none; }
+
+        .card:hover {
+            transform:translateY(-7px);
+            border-color:rgba(201,168,76,0.4);
+            box-shadow:0 22px 50px rgba(0,0,0,0.45),
+                       0 0 0 1px rgba(201,168,76,0.1);
+        }
+
+        .card-img-wrap {
+            position:relative; overflow:hidden;
+            aspect-ratio:4/3;
+        }
+
+        .card-img-wrap img {
+            width:100%; height:100%; object-fit:cover;
+            transition:transform 0.7s cubic-bezier(0.4,0,0.2,1);
+            display:block;
+        }
+
+        .card:hover .card-img-wrap img { transform:scale(1.07); }
+
+        /* gradient over image */
+        .card-img-wrap::after {
+            content:''; position:absolute; inset:0;
+            background:linear-gradient(to top,
+                rgba(10,4,24,0.7) 0%,
+                rgba(10,4,24,0.05) 50%,
+                transparent 100%);
+            opacity:0.5; transition:var(--transition);
+        }
+
+        .card:hover .card-img-wrap::after { opacity:0.85; }
+
+        /* badge */
+        .card-badge {
+            position:absolute; top:13px; left:13px; z-index:2;
+            background:linear-gradient(135deg,var(--gold),var(--gold-light));
+            color:var(--deep); font-size:0.6rem; font-weight:700;
+            letter-spacing:2px; text-transform:uppercase;
+            padding:4px 10px; border-radius:20px;
+        }
+
+        /* price tag on image */
+        .card-price-tag {
+            position:absolute; top:13px; right:13px; z-index:2;
+            background:rgba(10,4,24,0.7);
+            backdrop-filter:blur(10px);
+            border:1px solid rgba(201,168,76,0.3);
+            color:var(--gold-light);
+            font-size:0.74rem; font-weight:600;
+            padding:4px 11px; border-radius:20px;
+            font-family:'Cormorant Garamond',serif;
+            letter-spacing:0.5px;
+        }
+
+        /* hover overlay action */
+        .card-overlay-action {
+            position:absolute; bottom:0; left:0; right:0; z-index:3;
+            padding:0 16px 18px;
+            transform:translateY(8px); opacity:0;
+            transition:var(--transition);
+        }
+
+        .card:hover .card-overlay-action {
+            transform:translateY(0); opacity:1;
+        }
+
+        .btn-overlay-add {
+            width:100%; padding:10px; border-radius:9px;
+            border:none; cursor:pointer;
+            font-family:'Jost',sans-serif;
+            font-size:0.73rem; font-weight:600;
+            letter-spacing:1.5px; text-transform:uppercase;
+            background:rgba(201,168,76,0.18);
+            color:var(--gold-light);
+            border:1px solid rgba(201,168,76,0.4);
+            backdrop-filter:blur(12px);
+            transition:var(--transition);
+            display:flex; align-items:center; justify-content:center; gap:7px;
+        }
+
+        .btn-overlay-add:hover {
+            background:linear-gradient(135deg,var(--gold),var(--gold-light));
+            color:var(--deep); border-color:transparent;
+        }
+
+        /* card body */
+        .card-body {
+            padding:18px 20px 20px;
+            display:flex; align-items:center; justify-content:space-between;
+        }
+
+        .card-name {
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.1rem; font-weight:400;
+            letter-spacing:0.4px; line-height:1.3;
+        }
+
+        .btn-add-inline {
+            width:34px; height:34px; border-radius:50%;
+            background:rgba(201,168,76,0.1);
+            border:1px solid var(--border);
+            color:var(--gold-light);
+            display:flex; align-items:center; justify-content:center;
+            font-size:0.82rem; cursor:pointer;
+            transition:var(--transition); flex-shrink:0;
+            outline:none;
+        }
+
+        .btn-add-inline:hover {
+            background:var(--gold); color:var(--deep);
+            border-color:transparent;
+            transform:scale(1.12);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background:#07030f;
+            border-top:1px solid rgba(201,168,76,0.1);
+            padding:64px 5% 28px;
+        }
+
+        .footer-grid {
+            display:grid;
+            grid-template-columns:2fr 1fr 1fr 1.5fr;
+            gap:48px; margin-bottom:44px;
+            max-width:1400px; margin-left:auto; margin-right:auto;
+        }
+
+        .footer-brand h2 {
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.7rem; font-weight:300;
+            color:var(--gold-light); letter-spacing:2px; margin-bottom:13px;
+        }
+
+        .footer-brand p {
+            font-size:0.83rem; color:var(--text-muted);
+            line-height:1.85; margin-bottom:24px;
+        }
+
+        .socials { display:flex; gap:10px; }
+
+        .socials a {
+            width:36px; height:36px; border-radius:50%;
+            background:rgba(201,168,76,0.08);
+            border:1px solid rgba(201,168,76,0.18);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--gold-light); font-size:0.85rem;
+            text-decoration:none; transition:var(--transition);
+        }
+
+        .socials a:hover {
+            background:var(--gold); color:var(--deep);
+            transform:translateY(-3px);
+        }
+
+        .footer-col h4 {
+            font-size:0.64rem; letter-spacing:3px;
+            text-transform:uppercase; color:var(--gold); margin-bottom:18px;
+        }
+
+        .footer-col a,.footer-col p {
+            display:block; color:var(--text-muted);
+            text-decoration:none; font-size:0.82rem;
+            margin-bottom:9px; transition:var(--transition); line-height:1.6;
+        }
+
+        .footer-col a:hover { color:var(--gold-light); padding-left:4px; }
+
+        .footer-bottom {
+            padding-top:20px;
+            border-top:1px solid rgba(201,168,76,0.08);
+            display:flex; justify-content:space-between;
+            font-size:0.74rem; color:var(--text-muted);
+            max-width:1400px; margin:0 auto;
+        }
+
+        /* ── TOAST NOTIFICATION ── */
+        .toast {
+            position:fixed; bottom:30px; left:50%;
+            transform:translateX(-50%) translateY(80px);
+            background:linear-gradient(135deg,var(--surface),var(--surface2));
+            border:1px solid var(--border);
+            color:var(--text); padding:12px 24px;
+            border-radius:50px; font-size:0.82rem;
+            box-shadow:0 10px 30px rgba(0,0,0,0.4);
+            z-index:3000; transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);
+            display:flex; align-items:center; gap:10px;
+            white-space:nowrap;
+        }
+
+        .toast.show { transform:translateX(-50%) translateY(0); }
+        .toast i { color:var(--gold); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width:992px) {
+            .grid { grid-template-columns:repeat(2,1fr); gap:18px; }
+            .footer-grid { grid-template-columns:1fr 1fr; gap:28px; }
+            nav a { font-size:0.72rem; gap:18px; }
+        }
+
+        @media (max-width:768px) {
+            header { flex-direction:column; height:auto; padding:14px 5%; gap:12px; }
+            nav { flex-wrap:wrap; justify-content:center; gap:14px; }
+            #cart-dropdown { width:90%; right:5%; left:5%; top:170px; }
+            .page-hero-inner { flex-direction:column; }
+            .filter-bar { justify-content:flex-start; }
+        }
+
+        @media (max-width:520px) {
+            .grid { grid-template-columns:1fr; }
+            .footer-grid { grid-template-columns:1fr; }
         }
     </style>
 </head>
-
 <body>
 
-<header>
+<!-- ── HEADER ── -->
+<header id="mainHeader">
     <a href="index.html" class="logo-container">
         <div class="logo-circle">DT</div>
         <h1>Dala Threads</h1>
     </a>
     <nav>
         <a href="index.html" id="navHome">Home</a>
-        <a href="product.html" id="navProduct">Our Products</a>
+        <a href="product.html" id="navProduct" class="active">Our Products</a>
         <a href="contact.html" id="navContact">Contact Us</a>
         <a href="ourservices.html" id="navServices">Services</a>
         <a href="login.html" id="navLogin">Sign In</a>
     </nav>
     <div class="top-icons">
-        <div class="search-container">
-            <i class="fa-solid fa-magnifying-glass search-icon-inside"></i>
-            <input type="text" id="productSearch" placeholder="Search bags..." onkeyup="filterProducts()">
+        <div class="search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="productSearch" placeholder="Search bags…" onkeyup="filterProducts()">
         </div>
-        <select id="language">
+        <select id="language" onchange="applyTranslations(this.value)">
             <option value="en">EN</option>
             <option value="rw">RW</option>
         </select>
-        <button onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
-        <div class="cart-trigger" onclick="toggleCart()">
-            <i class="fa-solid fa-cart-shopping"></i>
+        <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <i class="fa-solid fa-sun" id="themeIcon"></i>
+        </button>
+        <div class="cart-wrap">
+            <button class="icon-btn" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
             <span class="cart-badge" id="cartBadge">0</span>
         </div>
     </div>
 </header>
 
+<!-- ── CART DROPDOWN ── -->
 <div id="cart-dropdown">
-    <h3 id="cartTitle" style="margin-bottom:15px; font-family:'Playfair Display'; border-bottom:2px solid var(--primary); padding-bottom:5px;">Your Shopping Bag</h3>
+    <h3 id="cartTitle"><i class="fa-solid fa-bag-shopping" style="margin-right:8px;font-size:0.9rem;"></i>Your Shopping Bag</h3>
     <ul id="cartItems" style="list-style:none;"></ul>
-    
-    <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:bold; margin-top:15px; padding-top:10px; border-top:1px solid rgba(0,0,0,0.1);">
-        <span>Total:</span>
+    <div class="cart-total-row">
+        <span id="totalLabel">Total</span>
         <span><span id="total">0</span> FRW</span>
     </div>
-
-    <!-- Email as a clickable red button that pre-fills cart items -->
-    <div class="email-info-box">
-        <a class="email-btn-link" id="emailOrderBtn" href="mailto:keybuhendwa0@gmail.com">
+    <div class="cart-actions">
+        <button class="checkout-btn email-btn" onclick="orderViaGmail()">
             <i class="fa-solid fa-envelope"></i> Order via Email
-        </a>
-    </div>
-
-    <div class="checkout-buttons">
-        <button class="checkout-btn whatsapp" onclick="checkoutWhatsApp()">
+        </button>
+        <button class="checkout-btn wa-btn" onclick="checkoutWhatsApp()">
             <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
         </button>
-        <!-- USSD: opens phone dialer with *182*1*1*0795013119# pre-written -->
-        <a class="checkout-btn ussd" href="tel:*182*1*1*0795013119%23">
-            <i class="fa-solid fa-phone"></i> Pay via USSD (*182*1*1*0795013119#)
+        <a class="checkout-btn ussd-btn" href="tel:*182*1*1*0795013119%23">
+            <i class="fa-solid fa-phone"></i> Pay via USSD
         </a>
     </div>
 </div>
 
-<section class="gallery-section">
-    <h2 id="galleryTitle">Our Collection</h2>
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">
+    <i class="fa-solid fa-check-circle"></i>
+    <span id="toastMsg">Added to cart</span>
+</div>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+    <div class="page-hero-inner">
+        <div class="page-hero-left">
+            <div class="page-eyebrow" id="pageEyebrow">Handmade in Rwanda</div>
+            <h2 id="galleryTitle">Our Full <em>Collection</em></h2>
+            <p id="gallerySubtitle">Every piece tells a story — crafted bead by bead with patience, tradition, and love.</p>
+        </div>
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-pill active" onclick="filterByTag(this,'all')" id="tagAll">All</button>
+            <button class="filter-pill" onclick="filterByTag(this,'purse')" id="tagPurse">Purses</button>
+            <button class="filter-pill" onclick="filterByTag(this,'bag')" id="tagBag">Bags</button>
+            <button class="filter-pill" onclick="filterByTag(this,'backpack')" id="tagBackpack">Backpacks</button>
+            <button class="filter-pill" onclick="filterByTag(this,'clutch')" id="tagClutch">Clutches</button>
+        </div>
+    </div>
+    <div class="hero-divider"></div>
+</div>
+
+<!-- ── COLLECTION ── -->
+<section class="collection">
+    <div class="collection-meta">
+        <div class="collection-count" id="collCount">Showing <span>22</span> pieces</div>
+        <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+            <option value="default">Sort: Default</option>
+            <option value="low">Price: Low → High</option>
+            <option value="high">Price: High → Low</option>
+            <option value="name">Name A → Z</option>
+        </select>
+    </div>
+
     <div class="grid" id="productGrid">
-        <div class="card"><img src="bag1.jpg" alt="Classic Beaded Bag"><div class="card-content"><h4>Classic Beaded Bag</h4><p class="price">25,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Classic Beaded Bag', 25000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag2.jpg" alt="Elegant Bead Purse"><div class="card-content"><h4>Elegant Bead Purse</h4><p class="price">30,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Elegant Bead Purse', 30000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag3.jpg" alt="Luxury Handbag"><div class="card-content"><h4>Luxury Handbag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Luxury Handbag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag4.jpg" alt="Petite Gold Purse"><div class="card-content"><h4>Petite Gold Purse</h4><p class="price">45,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Petite Gold Purse', 45000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag5.jpg" alt="Evening Clutch"><div class="card-content"><h4>Evening Clutch</h4><p class="price">48,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Evening Clutch', 48000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag6.jpg" alt="Bridal Bead Bag"><div class="card-content"><h4>Bridal Bead Bag</h4><p class="price">45,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Bridal Bead Bag', 45000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag7.jpg" alt="Royal Handbag"><div class="card-content"><h4>Royal Handbag</h4><p class="price">50,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Royal Handbag', 50000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag8.jpg" alt="Mini Beaded Tote"><div class="card-content"><h4>Mini Beaded Tote</h4><p class="price">20,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Mini Beaded Tote', 20000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag9.jpg" alt="Heritage Bag"><div class="card-content"><h4>Heritage Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Heritage Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag10.jpg" alt="Triangle Bag"><div class="card-content"><h4>Triangle Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Triangle Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag11.jpg" alt="Blue Bag"><div class="card-content"><h4>Blue Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Blue Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag12.jpg" alt="Green Bag"><div class="card-content"><h4>Green Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Green Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag13.jpg" alt="Elegant Bag"><div class="card-content"><h4>Elegant Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Elegant Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag14.jpg" alt="Light-Blue Bag"><div class="card-content"><h4>Light-Blue Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Light-Blue Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag15.jpg" alt="Classic Purse"><div class="card-content"><h4>Classic Purse</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Classic Purse', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag16.jpg" alt="Occasional Bag"><div class="card-content"><h4>Occasional Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Occasional Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag17.jpg" alt="White BackPack"><div class="card-content"><h4>White BackPack</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('White BackPack', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag18.jpg" alt="Fashion BackPack"><div class="card-content"><h4>Fashion BackPack</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Fashion BackPack', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag19.jpg" alt="Mothers Bag"><div class="card-content"><h4>Mothers Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Mothers Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag20.jpg" alt="Evening Bag"><div class="card-content"><h4>Evening Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Evening Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag21.jpg" alt="Wedding Bag"><div class="card-content"><h4>Wedding Bag</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Wedding Bag', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
-        <div class="card"><img src="bag22.jpg" alt="Queen Purse"><div class="card-content"><h4>Queen Purse</h4><p class="price">40,000 FRW</p><div class="button-group"><button class="btn-add" onclick="addToCart('Queen Purse', 40000)"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button></div></div></div>
+
+        <div class="card" data-price="25000" data-name="Classic Beaded Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag1.jpg" alt="Classic Beaded Bag" loading="lazy">
+                <div class="card-badge">New</div>
+                <div class="card-price-tag">25,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Classic Beaded Bag',25000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Classic Beaded Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Classic Beaded Bag',25000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="30000" data-name="Elegant Bead Purse" data-tag="purse">
+            <div class="card-img-wrap">
+                <img src="bag2.jpg" alt="Elegant Bead Purse" loading="lazy">
+                <div class="card-badge">Popular</div>
+                <div class="card-price-tag">30,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Elegant Bead Purse',30000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Elegant Bead Purse</div>
+                <button class="btn-add-inline" onclick="addToCart('Elegant Bead Purse',30000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Luxury Handbag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag3.jpg" alt="Luxury Handbag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Luxury Handbag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Luxury Handbag</div>
+                <button class="btn-add-inline" onclick="addToCart('Luxury Handbag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="45000" data-name="Petite Gold Purse" data-tag="purse">
+            <div class="card-img-wrap">
+                <img src="bag4.jpg" alt="Petite Gold Purse" loading="lazy">
+                <div class="card-price-tag">45,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Petite Gold Purse',45000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Petite Gold Purse</div>
+                <button class="btn-add-inline" onclick="addToCart('Petite Gold Purse',45000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="48000" data-name="Evening Clutch" data-tag="clutch">
+            <div class="card-img-wrap">
+                <img src="bag5.jpg" alt="Evening Clutch" loading="lazy">
+                <div class="card-price-tag">48,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Evening Clutch',48000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Evening Clutch</div>
+                <button class="btn-add-inline" onclick="addToCart('Evening Clutch',48000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="45000" data-name="Bridal Bead Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag6.jpg" alt="Bridal Bead Bag" loading="lazy">
+                <div class="card-badge">Bridal</div>
+                <div class="card-price-tag">45,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Bridal Bead Bag',45000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Bridal Bead Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Bridal Bead Bag',45000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="50000" data-name="Royal Handbag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag7.jpg" alt="Royal Handbag" loading="lazy">
+                <div class="card-price-tag">50,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Royal Handbag',50000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Royal Handbag</div>
+                <button class="btn-add-inline" onclick="addToCart('Royal Handbag',50000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="20000" data-name="Mini Beaded Tote" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag8.jpg" alt="Mini Beaded Tote" loading="lazy">
+                <div class="card-price-tag">20,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Mini Beaded Tote',20000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Mini Beaded Tote</div>
+                <button class="btn-add-inline" onclick="addToCart('Mini Beaded Tote',20000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Heritage Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag9.jpg" alt="Heritage Bag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Heritage Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Heritage Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Heritage Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Triangle Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag10.jpg" alt="Triangle Bag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Triangle Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Triangle Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Triangle Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Blue Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag11.jpg" alt="Blue Bag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Blue Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Blue Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Blue Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Green Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag12.jpg" alt="Green Bag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Green Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Green Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Green Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Elegant Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag13.jpg" alt="Elegant Bag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Elegant Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Elegant Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Elegant Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Light-Blue Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag14.jpg" alt="Light-Blue Bag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Light-Blue Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Light-Blue Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Light-Blue Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Classic Purse" data-tag="purse">
+            <div class="card-img-wrap">
+                <img src="bag15.jpg" alt="Classic Purse" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Classic Purse',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Classic Purse</div>
+                <button class="btn-add-inline" onclick="addToCart('Classic Purse',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Occasional Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag16.jpg" alt="Occasional Bag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Occasional Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Occasional Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Occasional Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="White BackPack" data-tag="backpack">
+            <div class="card-img-wrap">
+                <img src="bag17.jpg" alt="White BackPack" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('White BackPack',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">White BackPack</div>
+                <button class="btn-add-inline" onclick="addToCart('White BackPack',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Fashion BackPack" data-tag="backpack">
+            <div class="card-img-wrap">
+                <img src="bag18.jpg" alt="Fashion BackPack" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Fashion BackPack',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Fashion BackPack</div>
+                <button class="btn-add-inline" onclick="addToCart('Fashion BackPack',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Mothers Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag19.jpg" alt="Mothers Bag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Mothers Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Mothers Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Mothers Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Evening Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag20.jpg" alt="Evening Bag" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Evening Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Evening Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Evening Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Wedding Bag" data-tag="bag">
+            <div class="card-img-wrap">
+                <img src="bag21.jpg" alt="Wedding Bag" loading="lazy">
+                <div class="card-badge">Bridal</div>
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Wedding Bag',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Wedding Bag</div>
+                <button class="btn-add-inline" onclick="addToCart('Wedding Bag',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-price="40000" data-name="Queen Purse" data-tag="purse">
+            <div class="card-img-wrap">
+                <img src="bag22.jpg" alt="Queen Purse" loading="lazy">
+                <div class="card-price-tag">40,000 FRW</div>
+                <div class="card-overlay-action">
+                    <button class="btn-overlay-add" onclick="addToCart('Queen Purse',40000)">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-name">Queen Purse</div>
+                <button class="btn-add-inline" onclick="addToCart('Queen Purse',40000)" title="Add to cart">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
     </div>
 </section>
 
+<!-- ── FOOTER ── -->
 <footer>
-    <p>© 2026 Dala Threads. Handmade with love in Rwanda.</p>
-    <div class="social-links">
-        <a href="https://www.instagram.com/dala_threads" class="social-icon instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://wa.me/250795013119" class="social-icon whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="https://www.facebook.com/search/top?q=buhendwa%20daniella" class="social-icon facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-        <a href="https://www.tiktok.com/@dala_threads" class="social-icon tiktok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h2>Dala Threads</h2>
+            <p>Handmade in Rwanda with love. We bring elegance to your wardrobe through traditional beadwork passed down through generations.</p>
+            <div class="socials">
+                <a href="https://www.instagram.com/dala_threads" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/250795013119" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/search/top?q=buhendwa%20daniella" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/@dala_threads" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="index.html">Home</a>
+            <a href="product.html">Our Products</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="ourservices.html">Services</a>
+            <a href="login.html">Sign In</a>
+        </div>
+        <div class="footer-col">
+            <h4>Support</h4>
+            <a href="#">Shipping Policy</a>
+            <a href="#">Return Policy</a>
+            <a href="#">FAQs</a>
+            <a href="#">Size Guide</a>
+        </div>
+        <div class="footer-col">
+            <h4>Contact Us</h4>
+            <p><i class="fa-solid fa-location-dot" style="color:var(--gold);margin-right:6px;"></i>Ruyenzi, Kamonyi, Rwanda</p>
+            <p><i class="fa-brands fa-whatsapp" style="color:var(--gold);margin-right:6px;"></i>+250 795 013 119</p>
+            <p><i class="fa-solid fa-envelope" style="color:var(--gold);margin-right:6px;"></i>keybuhendwa0@gmail.com</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Dala Threads. All rights reserved.</span>
+        <span>Handmade with ♥ in Rwanda</span>
     </div>
 </footer>
 
 <script>
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let currentTag = 'all';
 
-function filterProducts() {
-    const input = document.getElementById('productSearch').value.toLowerCase();
-    document.querySelectorAll('.grid .card').forEach(card => {
-        const title = card.querySelector('h4') ? card.querySelector('h4').innerText.toLowerCase() : "";
-        card.classList.toggle('hidden', !title.includes(input));
-    });
+// ── TOAST ────────────────────────────────────────────────────
+function showToast(name) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = `"${name}" added to cart`;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
 }
 
+// ── CART ─────────────────────────────────────────────────────
 function toggleCart() {
     document.getElementById("cart-dropdown").classList.toggle("active");
 }
+
+document.addEventListener('click', e => {
+    const d = document.getElementById('cart-dropdown');
+    if (d.classList.contains('active') &&
+        !d.contains(e.target) &&
+        !e.target.closest('.cart-wrap')) {
+        d.classList.remove('active');
+    }
+});
 
 function addToCart(name, price) {
     cart.push({ id: Date.now(), name, price });
     saveAndRefresh();
     document.getElementById("cart-dropdown").classList.add("active");
+    showToast(name);
+    // badge bounce
+    const b = document.getElementById('cartBadge');
+    b.style.transform = 'scale(1.6)';
+    setTimeout(() => b.style.transform = '', 300);
 }
 
 function removeFromCart(id) {
@@ -411,86 +1192,154 @@ function displayCart() {
     const list = document.getElementById("cartItems");
     const totalEl = document.getElementById("total");
     const badge = document.getElementById("cartBadge");
-    
     list.innerHTML = "";
     let total = 0;
-
     cart.forEach(item => {
         const li = document.createElement("li");
         li.className = "cart-item";
         li.innerHTML = `
             <span>${item.name}</span>
-            <div>
-                <span style="margin-right:10px; font-weight:600;">${item.price.toLocaleString()} FRW</span>
-                <button class="remove-btn" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash-can"></i></button>
-            </div>
-        `;
+            <div style="display:flex;align-items:center;gap:10px;">
+                <span style="font-size:0.8rem;color:var(--gold-light);font-weight:600;">${item.price.toLocaleString()} FRW</span>
+                <button class="remove-btn" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-xmark"></i></button>
+            </div>`;
         list.appendChild(li);
         total += item.price;
     });
-    
     totalEl.innerText = total.toLocaleString();
     badge.innerText = cart.length;
-    updateEmailBtn();
+    badge.style.display = cart.length ? 'flex' : 'none';
 }
 
-function updateEmailBtn() {
-    const btn = document.getElementById("emailOrderBtn");
-    if (cart.length === 0) {
-        btn.href = "mailto:keybuhendwa0@gmail.com";
-        return;
-    }
-    const subject = "New Order from Dala Threads";
-    let body = "I would like to purchase the following items from Dala Threads:\n\nORDER DETAILS:\n--------------\n\n";
-    cart.forEach((item, i) => { body += `${i + 1}. ${item.name} - ${item.price.toLocaleString()} FRW\n`; });
-    body += `\nTOTAL: ${document.getElementById("total").innerText} FRW\n\nPlease confirm availability and provide payment instructions.\n\nThank you!`;
-    btn.href = `mailto:keybuhendwa0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+// ── SEARCH ───────────────────────────────────────────────────
+function filterProducts() {
+    const q = document.getElementById('productSearch').value.toLowerCase();
+    let visible = 0;
+    document.querySelectorAll('#productGrid .card').forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const tag  = card.dataset.tag;
+        const matchSearch = name.includes(q);
+        const matchTag = currentTag === 'all' || tag === currentTag;
+        const show = matchSearch && matchTag;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+    });
+    updateCount(visible);
 }
 
+// ── FILTER BY TAG ─────────────────────────────────────────────
+function filterByTag(btn, tag) {
+    currentTag = tag;
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    filterProducts();
+}
+
+// ── SORT ──────────────────────────────────────────────────────
+function sortProducts() {
+    const val = document.getElementById('sortSelect').value;
+    const grid = document.getElementById('productGrid');
+    const cards = [...grid.querySelectorAll('.card')];
+    cards.sort((a,b) => {
+        if (val === 'low')  return +a.dataset.price - +b.dataset.price;
+        if (val === 'high') return +b.dataset.price - +a.dataset.price;
+        if (val === 'name') return a.dataset.name.localeCompare(b.dataset.name);
+        return 0;
+    });
+    cards.forEach(c => grid.appendChild(c));
+}
+
+function updateCount(n) {
+    const count = document.getElementById('collCount');
+    if (count) count.innerHTML = `Showing <span>${n}</span> pieces`;
+}
+
+// ── ORDER VIA GMAIL ───────────────────────────────────────────
+function orderViaGmail() {
+    if (!cart.length) { alert("Your cart is empty!"); return; }
+    const now = new Date().toLocaleString("en-RW",{dateStyle:"medium",timeStyle:"short"});
+    const subject = "New Order from Dala Threads - " + now;
+    let body = "DALA THREADS - NEW ORDER\n========================\n\n";
+    body += "Order Time: " + now + "\n\nORDER ITEMS:\n------------\n";
+    cart.forEach((item,i) => { body += `${i+1}. ${item.name} — ${item.price.toLocaleString()} FRW\n`; });
+    const total = cart.reduce((s,i) => s+i.price, 0);
+    body += `\nTOTAL: ${total.toLocaleString()} FRW\n\nPlease confirm availability and payment instructions.\n\nThank you!`;
+    window.open(`https://mail.google.com/mail/?view=cm&to=keybuhendwa0@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_blank");
+}
+
+// ── WHATSAPP ──────────────────────────────────────────────────
 function checkoutWhatsApp() {
-    if (cart.length === 0) { alert("Your cart is empty!"); return; }
-    let message = `*Dala Threads - New Order*%0A%0A*Items:*%0A`;
-    cart.forEach(item => { message += `- ${item.name} (${item.price.toLocaleString()} FRW)%0A`; });
-    message += `%0A*Total: ${document.getElementById("total").innerText} FRW*`;
-    window.open(`https://wa.me/250795013119?text=${message}`, '_blank');
+    if (!cart.length) { alert("Your cart is empty!"); return; }
+    let msg = "*DALA THREADS - NEW ORDER*%0A%0A*Items:*%0A";
+    cart.forEach(item => { msg += `- ${item.name} (${item.price.toLocaleString()} FRW)%0A`; });
+    const total = cart.reduce((s,i) => s+i.price, 0);
+    msg += `%0A*Total: ${total.toLocaleString()} FRW*%0A%0APlease confirm availability. Thank you! 🙏`;
+    window.open(`https://wa.me/250795013119?text=${msg}`, "_blank");
 }
 
+// ── HEADER SCROLL ─────────────────────────────────────────────
+window.addEventListener("scroll", () => {
+    document.getElementById("mainHeader").classList.toggle("scrolled", window.scrollY > 60);
+});
+
+// ── THEME ─────────────────────────────────────────────────────
 function toggleTheme() {
-    document.body.classList.toggle("dark");
-    const isDark = document.body.classList.contains("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    document.getElementById("themeIcon").className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    document.body.classList.toggle("light");
+    const isLight = document.body.classList.contains("light");
+    localStorage.setItem("dtTheme", isLight ? "light" : "dark");
+    document.getElementById("themeIcon").className = isLight ? "fa-solid fa-moon" : "fa-solid fa-sun";
 }
 
-const translations = {
-    en: { gallery: "Our Collection", cart: "Your Shopping Bag", home: "Home", prod: "Our Products", cont: "Contact Us", serv: "Services" },
-    rw: { gallery: "Ibihangano Byacu", cart: "Ikarita yawe", home: "Ahabanza", prod: "Ibicuruzwa", cont: "Twandikire", serv: "Serivisi" }
+// ── TRANSLATIONS ──────────────────────────────────────────────
+const T = {
+    en: {
+        eyebrow:"Handmade in Rwanda", title:"Our Full <em>Collection</em>",
+        sub:"Every piece tells a story — crafted bead by bead with patience, tradition, and love.",
+        cart:"Your Shopping Bag", totalLabel:"Total",
+        home:"Home", prod:"Our Products", cont:"Contact Us", serv:"Services", login:"Sign In",
+        tagAll:"All", tagPurse:"Purses", tagBag:"Bags", tagBackpack:"Backpacks", tagClutch:"Clutches"
+    },
+    rw: {
+        eyebrow:"Ikorwa mu Rwanda", title:"Ibikorwa <em>Byacu Byose</em>",
+        sub:"Buri gicuruzwa gifite inkuru — gikorwa imisanga incuro z'inshuro igihe, amateka n'urukundo.",
+        cart:"Agasaho Kawe", totalLabel:"Igiteranyo",
+        home:"Ahabanza", prod:"Ibicuruzwa", cont:"Twandikire", serv:"Serivisi", login:"Injira",
+        tagAll:"Byose", tagPurse:"Amasakoshi", tagBag:"Amasaho", tagBackpack:"Imivuko", tagClutch:"Amasakoshi Mato"
+    }
 };
-
-document.getElementById("language").addEventListener("change", (e) => { applyTranslations(e.target.value); });
 
 function applyTranslations(l) {
-    const t = translations[l];
-    localStorage.setItem("language", l);
-    document.getElementById("galleryTitle").innerText = t.gallery;
-    document.getElementById("cartTitle").innerText = t.cart;
-    document.getElementById("navHome").innerText = t.home;
-    document.getElementById("navProduct").innerText = t.prod;
-    document.getElementById("navContact").innerText = t.cont;
-    document.getElementById("navServices").innerText = t.serv;
+    const t = T[l] || T.en;
+    localStorage.setItem("dtLang", l);
+    document.getElementById("pageEyebrow").textContent = t.eyebrow;
+    document.getElementById("galleryTitle").innerHTML = t.title;
+    document.getElementById("gallerySubtitle").textContent = t.sub;
+    document.getElementById("cartTitle").innerHTML = `<i class="fa-solid fa-bag-shopping" style="margin-right:8px;font-size:0.9rem;"></i>${t.cart}`;
+    document.getElementById("totalLabel").textContent = t.totalLabel;
+    document.getElementById("navHome").textContent = t.home;
+    document.getElementById("navProduct").textContent = t.prod;
+    document.getElementById("navContact").textContent = t.cont;
+    document.getElementById("navServices").textContent = t.serv;
+    document.getElementById("navLogin").textContent = t.login;
+    document.getElementById("tagAll").textContent = t.tagAll;
+    document.getElementById("tagPurse").textContent = t.tagPurse;
+    document.getElementById("tagBag").textContent = t.tagBag;
+    document.getElementById("tagBackpack").textContent = t.tagBackpack;
+    document.getElementById("tagClutch").textContent = t.tagClutch;
 }
 
+// ── INIT ──────────────────────────────────────────────────────
 window.onload = () => {
     displayCart();
-    if (localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark");
-        document.getElementById("themeIcon").className = "fa-solid fa-sun";
+    if (localStorage.getItem("dtTheme") === "light") {
+        document.body.classList.add("light");
+        document.getElementById("themeIcon").className = "fa-solid fa-moon";
     }
-    const savedLang = localStorage.getItem("language") || "en";
+    const savedLang = localStorage.getItem("dtLang") || "en";
     document.getElementById("language").value = savedLang;
     applyTranslations(savedLang);
+    updateCount(22);
 };
 </script>
-
 </body>
 </html>
